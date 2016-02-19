@@ -50,7 +50,7 @@
 						<div class="ui-column-20pct">{{0.startTime}}</div>
 						<div class="ui-column-20pct">{{0.endTime}}</div>
 						<div class="ui-column-10pct">
-							<button class="btn-remove">&nbsp;</button>
+							<button class="btn-remove" style="display: inline;">&nbsp;</button>
 						</div>
 					</li>
 				</ul>

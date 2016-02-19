@@ -7,7 +7,6 @@
 .datalist li {
 	border-bottom: 1px dashed #aaa;
 	color: #333;
-	vertical-align: top;
 }
 
 .datalist li div, .pager1 div, .pager2 div {
