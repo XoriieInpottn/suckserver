@@ -12,22 +12,22 @@
 		</action>
 	</package>
 	<package name="json" extends="json-default" namespace="/">
-		<action name="GetTasks" class="org.lioxa.ustc.suckserver.action.GetTasksAction">
+		<action name="get-tasks" class="org.lioxa.ustc.suckserver.action.GetTasksAction">
 			<result name="done" type="json">
 				<param name="root">result</param>
 			</result>
 		</action>
-		<action name="CreateTask" class="org.lioxa.ustc.suckserver.action.CreateTaskAction">
+		<action name="create-task" class="org.lioxa.ustc.suckserver.action.CreateTaskAction">
 			<result name="done" type="json">
 				<param name="root">result</param>
 			</result>
 		</action>
-		<action name="GetLogs" class="org.lioxa.ustc.suckserver.action.GetLogsAction">
+		<action name="get-logs" class="org.lioxa.ustc.suckserver.action.GetLogsAction">
 			<result name="done" type="json">
 				<param name="root">result</param>
 			</result>
 		</action>
-		<action name="StopTask" class="org.lioxa.ustc.suckserver.action.StopTaskAction">
+		<action name="stop-task" class="org.lioxa.ustc.suckserver.action.StopTaskAction">
 			<result name="done" type="json">
 				<param name="root">result</param>
 			</result>

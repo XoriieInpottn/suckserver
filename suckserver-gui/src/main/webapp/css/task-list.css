@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.datalist {
+	width: 1000px;
+}
+
+.datalist li {
+	border-bottom: 1px dashed #aaa;
+	color: #333;
+	vertical-align: top;
+}
+
+.datalist li div, .pager1 div, .pager2 div {
+	display: inline-block;
+}
+
+.datalist li div {
+	height: 3em;
+	line-height: 3em;
+	text-align: center;
+}
+
+.datalist li:first-child {
+	background: #eee;
+	border: none;
+}
+
+.datalist li:first-child div {
+	font-weight: bold;
+}

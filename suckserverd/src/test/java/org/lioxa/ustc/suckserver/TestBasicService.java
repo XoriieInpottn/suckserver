@@ -38,13 +38,13 @@ public class TestBasicService {
         Date lastTime = null;
         long tid;
         try {
-            tid = srv.createTask(template, false);
+            tid = srv.createTask(template, true);
         } catch (RemoteException e) {
             System.err.println(getMessages(e));
             return;
         }
         System.out.println(tid);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

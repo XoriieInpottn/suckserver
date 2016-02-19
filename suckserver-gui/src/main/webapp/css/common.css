@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0px;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+.ui-padding-s {
+	padding: 20px;
+}
+
+.ui-padding-m {
+	padding: 30px;
+}
+
+.ui-padding-l {
+	padding: 50px;
+}
+
+.ui-container {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	background: white;
+	width: 100%;
+}
+
+.ui-nav {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	height: 50px;
+	background: #333;
+	z-index: 10;
+}
+
+.ui-brand {
+	display: inline-block;
+	width: 200px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.ui-brand a {
+	color: #ccc;
+	text-decoration: none;
+}
+
+.ui-brand a:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.ui-sidebar {
+	position: absolute;
+	left: 0px;
+	width: 200px;
+	top: 50px;
+	bottom: 0px;
+	background: #F5F5F5;
+	border-right: 1px solid #CCC;
+	z-index: 9;
+}
+
+.ui-sidebar a {
+	display: block;
+	height: 3em;
+	line-height: 3em;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+}
+
+.ui-sidebar a:first-child {
+	margin-top: 1em;
+}
+
+.ui-sidebar a:hover {
+	background: #999;
+}
+
+.ui-main {
+	position: absolute;
+	left: 201px;
+	right: 0px;
+	top: 50px;
+	bottom: 0px;
+}
