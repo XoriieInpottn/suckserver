@@ -1,0 +1,138 @@
+body {
+  padding-top: 50px;
+}
+.navbar-fixed-top {
+  border: 0;
+}
+.sidebar {
+  display: none;
+}
+@media (min-width: 600px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+.col-sm-3 {
+	width:250px;
+}
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+.main {
+  padding: 20px;
+}
+@media (min-width: 600px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main{
+}
+.tab-content{
+padding-top:50px;
+}
+.container{
+  margin-left: 50px;
+}
+#main{
+  width:80%;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+.warning_info {
+	color: #FF0000;
+	font-size: 10px;
+	font-family: "楷体";
+	border: none;
+}
+.col-md-3{
+  width: 140px;
+  float: right;
+  margin-right: 20px;
+}
+#main2{
+	width: 900px;
+	height:320px;
+	padding: 20px 0 100px;
+	border: 1px solid #eee;
+	background-color: #f4f4f4;
+}
+
+#xml_text{
+	width:100%;
+	overflow:visible;
+}
+
+#text_submit {
+	margin-top : 10px;
+	margin-left: 89%;
+}
+
+#log_div {
+	height:120px;
+	width:100%;
+    border:1px solid #dddddd; 
+    overflow:auto; 
+    bottom:1px;
+    background: white;
+    left:250px;
+    position:fixed;
+}
+
+.task-group {
+	width:24.5%;
+	height:40px;
+	position: relative;
+}
+
+.cmd-group {
+	height:38px;
+}
+
+.btn{
+	font-weight: bold !important;
+}
+
+.do-group {
+	width:63px;
+	 z-index:100;
+}
+#s-body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight: bold !important;
+}
+
+#div-border {
+	height:208px; 
+	width:100%; 
+	background-color:#FFFFFF;
+	border:1px solid #dddddd;
+	margin-top:20px;
+	border-radius:5px
+}
+#btn_test {
+	margin-left:3%;
+}

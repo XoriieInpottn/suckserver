@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suckserver>
+	<db>
+		<type>postgresql</type>
+		<name>testdb</name>
+		<user>postgres</user>
+		<passwd>postgres</passwd>
+	</db>
+</suckserver>
