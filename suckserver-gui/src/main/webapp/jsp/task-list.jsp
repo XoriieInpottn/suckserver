@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>suckserver</title>
+<title>Suckserver - Task List</title>
 <link rel="stylesheet" href="<s:url value='/css/jquery-ui.min.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/jquery-datalist.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/common.css' />" />
@@ -43,14 +43,15 @@
 					<li>
 						<div class="ui-column-5pct">{{0.id}}</div>
 						<div class="ui-column-20pct">
-							<a href="<s:url value="/" />?id={{0.id}}">{{0.name}}</a>
+							<a href="<s:url value="/jsp/task-status.jsp" />?id={{0.id}}">{{0.name}}</a>
 						</div>
 						<div class="ui-column-10pct">{{0.type}}</div>
 						<div class="ui-column-10pct">{{0.status}}</div>
 						<div class="ui-column-20pct">{{0.startTime}}</div>
 						<div class="ui-column-20pct">{{0.endTime}}</div>
 						<div class="ui-column-10pct">
-							<button class="btn-remove" style="display: inline;">&nbsp;</button>
+							<button class="btn-remove">&nbsp;</button>
+							&nbsp;
 						</div>
 					</li>
 				</ul>

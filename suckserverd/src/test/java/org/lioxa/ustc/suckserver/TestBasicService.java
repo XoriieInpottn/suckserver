@@ -38,7 +38,7 @@ public class TestBasicService {
         Date lastTime = null;
         long tid;
         try {
-            tid = srv.createTask(template, true);
+            tid = srv.createTask(template, false);
         } catch (RemoteException e) {
             System.err.println(getMessages(e));
             return;

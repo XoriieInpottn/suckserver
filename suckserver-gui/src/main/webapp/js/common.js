@@ -2,6 +2,24 @@
  * 
  */
 
+function getUrlVars() {
+	var vars = {};
+	var href = window.location.href;
+	var start = href.indexOf('?');
+	var end = href.indexOf('#');
+	if (start < 0) {
+		return vars;
+	}
+	start++;
+	var hashes = end < 0 ? href.slice(start) : href.slice(start, end);
+	hashes = hashes.split('&');
+	for (var i = 0; i < hashes.length; i++) {
+		hash = hashes[i].split('=');
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
+
 function checkIsNull(id, warning_id) {
 	if (document.getElementById(id).value == "") {
 		document.getElementById(warning_id).value = "(此列表不能为空!)";
@@ -35,7 +53,7 @@ function getEditModal(node) {
 		arr[0] = node.data.params.name;
 		arr[1] = node.data.params.type;
 	}
-	if (node.data.name == "go" || node.data.name == "load" ) {
+	if (node.data.name == "go" || node.data.name == "load") {
 		arr[0] = node.data.params.url;
 		arr[1] = node.data.params["max-page"];
 	}
@@ -50,7 +68,7 @@ function getEditModal(node) {
 	if (node.data.name == "select") {
 		arr[0] = node.data.params.path;
 	}
-	if(node.data.name == "var") {
+	if (node.data.name == "var") {
 		arr[0] = node.data.params.name;
 		arr[1] = node.data.params.value;
 	}

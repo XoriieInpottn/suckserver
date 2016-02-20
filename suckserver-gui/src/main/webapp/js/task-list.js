@@ -12,19 +12,19 @@ $(document).ready(function() {
 		onItemCreated : function(e, item) {
 			var data = item.datalistitem("data");
 			// console.log(data.name);
-//			item.find(".btn-remove").button({
-//				text : false,
-//				icons : {
-//					primary : "ui-icon-trash"
-//				}
-//			});
-//			// item.find("div:last").hide();
-//			item.mouseover(function() {
-//				item.find("div:last").show();
-//			});
-//			item.mouseleave(function() {
-//				item.find("div:last").hide();
-//			});
+			item.find(".btn-remove").button({
+				text : false,
+				icons : {
+					primary : "ui-icon-trash"
+				}
+			});
+			item.find("div:last").hide();
+			item.mouseover(function() {
+				item.find("div:last").show();
+			});
+			item.mouseleave(function() {
+				item.find("div:last").hide();
+			});
 		}
 	});
 	//
@@ -73,19 +73,22 @@ $(document).ready(function() {
 
 function onDataLoaded(e, data) {
 	var task = data[0];
-	task.type = task.type == 0 ? "deploy" : "test";
+	if (task.endTime == null) {
+		task.endTime = "?";
+	}
+	task.type = task.type == 0 ? "Deploy" : "Test";
 	switch (task.status) {
 	case 0:
-		task.status = "running";
+		task.status = "Running";
 		break;
 	case 1:
-		task.status = "complete";
+		task.status = "Complete";
 		break;
 	case 2:
-		task.status = "stopped";
+		task.status = "Terminated";
 		break;
 	case -1:
-		task.status = "error";
+		task.status = "Error";
 		break;
 	}
 }

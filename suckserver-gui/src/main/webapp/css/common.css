@@ -57,7 +57,7 @@ a:hover {
 }
 
 .ui-brand a {
-	color: #ccc;
+	color: #eee;
 	text-decoration: none;
 }
 
@@ -72,7 +72,7 @@ a:hover {
 	width: 200px;
 	top: 50px;
 	bottom: 0px;
-	background: #F5F5F5;
+	background: #eee;
 	border-right: 1px solid #CCC;
 	z-index: 9;
 }
@@ -87,11 +87,11 @@ a:hover {
 }
 
 .ui-sidebar a:first-child {
-	margin-top: 1em;
+	margin-top: 50px;
 }
 
 .ui-sidebar a:hover {
-	background: #999;
+	background: #ccc;
 }
 
 .ui-main {
@@ -100,4 +100,5 @@ a:hover {
 	right: 0px;
 	top: 50px;
 	bottom: 0px;
+	overflow: auto;
 }

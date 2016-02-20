@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.ui-basic-info {
+	position: absolute;
+	top: 50px;
+	height: 150px;
+	left: 201px;
+	right: 0px;
+	border-bottom: 1px solid #ccc;
+	background: #eee;
+}
+
+.ui-main {
+	top: 201px;
+}
