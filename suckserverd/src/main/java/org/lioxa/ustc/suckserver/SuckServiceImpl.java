@@ -99,4 +99,9 @@ public class SuckServiceImpl extends UnicastRemoteObject implements SuckService 
         return Loggers.getDefault().readLogs(tid, after, maxCount);
     }
 
+    @Override
+    public void removeTask(long tid) throws RemoteException {
+        Loggers.getDefault().removeTask(tid);
+    }
+
 }

@@ -124,4 +124,12 @@ public interface Logger {
      */
     List<Log> readLogs(long tid, Date after, int maxCount);
 
+    /**
+     * Remove the specific task and its logs;
+     *
+     * @param tid
+     *            The task ID;
+     */
+    void removeTask(long tid);
+
 }

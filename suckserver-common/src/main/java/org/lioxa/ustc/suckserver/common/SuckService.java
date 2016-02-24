@@ -101,4 +101,13 @@ public interface SuckService extends Remote {
      */
     List<Log> getLogs(long tid, Date after, int maxCount) throws RemoteException;
 
+    /**
+     * Remove the specific task and its logs.
+     *
+     * @param tid
+     *            The task ID.
+     * @throws RemoteException
+     */
+    void removeTask(long tid) throws RemoteException;
+
 }

@@ -255,4 +255,43 @@ public class DBLogger implements Logger {
         return lst;
     }
 
+    @Override
+    public void removeTask(long tid) {
+        Session dbSession;
+        try {
+            dbSession = Utils.getDBSession();
+            dbSession.beginTransaction();
+        } catch (RuntimeException e) {
+            throw new LogException("Failed to remove task.", e);
+        }
+        try {
+            Query q;
+            String hql = "from Task where id=:tid";
+            q = dbSession.createQuery(hql);
+            q.setLong("tid", tid);
+            Task task = (Task) q.uniqueResult();
+            if (task.getStatus() == Task.STATUS_RUNNING) {
+                String msg = String.format("Task %s is running, stop it first.", task.getName());
+                throw new LogException(msg);
+            }
+            hql = "DELETE FROM Task WHERE id=:tid";
+            q = dbSession.createQuery(hql);
+            q.setLong("tid", tid);
+            q.executeUpdate();
+            hql = "DELETE FROM Log WHERE tid=:tid";
+            q = dbSession.createQuery(hql);
+            q.setLong("tid", tid);
+            q.executeUpdate();
+            dbSession.getTransaction().commit();
+        } catch (RuntimeException e) {
+            dbSession.getTransaction().rollback();
+            if (e instanceof LogException) {
+                throw e;
+            }
+            throw new LogException("Failed to read logs.", e);
+        } finally {
+            dbSession.close();
+        }
+    }
+
 }
