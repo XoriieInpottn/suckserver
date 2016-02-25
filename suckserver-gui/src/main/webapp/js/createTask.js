@@ -9,13 +9,14 @@ $(document).ready(function() {
 		onNodeSelected : function(e, node) {
 		}
 	});
-	master = treeview.treeview("addNode", "task(name:XXX)", {
+	master = treeview.treeview("addNode", "task(name:Untitled task)", {
 		data : {
 			name : "task",
-			params : {name : "XXX"}
+			params : {name : "Untitled task"}
 		}
 	});
 	master.treeviewnode("expand");
+	master.treeviewnode("setSelect");
 	$("#dialog-task").dialog({
 		autoOpen : false,
 		height : 200,
@@ -26,7 +27,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("task-name")) {
 					alert("name cannot be null");
 					return;
@@ -41,7 +42,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-task").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-task").dialog("close");
 			}
 		},
@@ -65,7 +66,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("table-name")) {
 					alert("name cannot be null");
 					return;
@@ -85,7 +86,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-table").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-table").dialog("close");
 			}
 		},
@@ -109,7 +110,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("column-name")) {
 					alert("name cannot be null");
 					return;
@@ -137,7 +138,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-column").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-column").dialog("close");
 			}
 		},
@@ -161,7 +162,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("load-url")) {
 					alert("url cannot be null");
 					return;
@@ -183,7 +184,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-load").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-load").dialog("close");
 			}
 		},
@@ -207,7 +208,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("select-path")) {
 					alert("path cannot be null");
 					return;
@@ -222,7 +223,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-select").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-select").dialog("close");
 			}
 		},
@@ -238,7 +239,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-match").dialog({
 		autoOpen : false,
-		height : 350,
+		height : 400,
 		width : 350,
 		modal : true,
 		show : {
@@ -246,7 +247,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("match-var")) {
 					alert("var cannot be null");
 					return;
@@ -261,7 +262,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-match").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-match").dialog("close");
 			}
 		},
@@ -285,7 +286,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("save-name")) {
 					alert("name cannot be null");
 					return;
@@ -305,7 +306,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-save").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-save").dialog("close");
 			}
 		},
@@ -329,7 +330,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("var-name")) {
 					alert("name cannot be null");
 					return;
@@ -349,7 +350,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-var").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-var").dialog("close");
 			}
 		},
@@ -373,7 +374,7 @@ $(document).ready(function() {
 			duration : 200
 		},
 		buttons : {
-			"保存" : function() {
+			"OK" : function() {
 				if(checkIsNull("print-content")) {
 					alert("name cannot be null");
 					return;
@@ -388,7 +389,7 @@ $(document).ready(function() {
 				}
 				$("#dialog-print").dialog("close");
 			},
-			"取消" : function() {
+			"Cancel" : function() {
 				$("#dialog-print").dialog("close");
 			}
 		},
@@ -505,6 +506,7 @@ $(document).ready(function() {
 			var str = $("#xml_text").val();
 			var t = xmlToTree(str);
 			master = treeview.treeview("createTree",t);
+			master.treeviewnode("setSelect");
 		}
 	});
 	$("#tab-xml").click(function() {

@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="dialog-table" title="设置表 ">
+<div id="dialog-table" title="Set table ">
 	<fieldset>
-		<label for="table-name">表名称</label>
+		<label for="table-name">Name</label>
 		<input type="text" name="name" id="table-name" style="width:70%;margin-left:10px"/>
 	</fieldset>
 	<fieldset>
-		<label class="control-label">是否覆盖</label> 
+		<label class="control-label">Overlapped</label> 
 		<label class="checkbox-inline"> 
-			<input type="radio" name="overlap" id="overlap1" value="true" checked style="margin-left:10px"> 是
+			<input type="radio" name="overlap" id="overlap1" value="true" checked style="margin-left:10px"> true
 		</label>
 		<label class="checkbox-inline"> 
-		 	<input type="radio" name="overlap" id="overlap2" value="false"> 否
+		 	<input type="radio" name="overlap" id="overlap2" value="false"> false
 		</label>
 	</fieldset>
 </div>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>suckserver</title>
+<title>Suckserver - Task Status</title>
 <link rel="stylesheet" href="<s:url value='/css/jquery-ui.min.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/common.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/task-status.css' />" />

@@ -10,6 +10,11 @@ $(document).ready(function() {
 		console.error("No id !");
 		return;
 	}
+	var sideA = $("<a>Task Status</a>");
+	$(".ui-sidebar").append(sideA);
+	sideA.addClass("side-a");
+	sideA.addClass("ui-state-active");
+	sideA.attr("href", "#");
 	$(".stop-task").button({
 		text : false,
 		icons : {
@@ -19,7 +24,6 @@ $(document).ready(function() {
 		stopTask();
 	});
 	showLogs();
-	$(document).tooltip();
 });
 
 function stopTask() {
@@ -61,7 +65,7 @@ function showLogs() {
 				var task = result.task;
 				var taskStat = result.taskStat;
 				$(".name").text(task.name);
-				$(".type").text(task.type);
+				$(".type").text(task.type ? "Test" : "Deploy");
 				$(".start-time").text(task.startTime);
 				$(".end-time").text(task.endTime);
 				if (taskStat != undefined && taskStat != null) {
@@ -85,9 +89,7 @@ function showLogs() {
 				switch (task.status) {
 				case 0:
 					$(".status").text("running");
-					console.log("sssss");
 					setTimeout(showLogs, 2000);
-					console.log("eeeee");
 					break;
 				case 1:
 					$(".status").text("complete");

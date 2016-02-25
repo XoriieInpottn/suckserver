@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>suckserver</title>
+<title>Suckserver - Create Task</title>
 <link rel="stylesheet" href="<s:url value='/css/jquery-ui.min.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/common.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/createTask.css' />" />
@@ -23,18 +23,9 @@
 		<%@ include file="nav.jsp"%>
 		<%@ include file="sidebar.jsp"%>
 		<div class="ui-main">
-			<%@ include file="dialogs/task.jsp"%>
-			<%@ include file="dialogs/table.jsp"%>
-			<%@ include file="dialogs/column.jsp"%>
-			<%@ include file="dialogs/load.jsp"%>
-			<%@ include file="dialogs/select.jsp"%>
-			<%@ include file="dialogs/match.jsp"%>
-			<%@ include file="dialogs/save.jsp"%>
-			<%@ include file="dialogs/var.jsp"%>
-			<%@ include file="dialogs/print.jsp"%>
 			<div id="main">
 				<div id="main-top">
-					<div class = "cmd-group">
+					<div class="cmd-group">
 						<button id="btn-edit">Modify</button>
 						<button id="btn-delete">Remove</button>
 						<button id="btn-up">Up</button>
@@ -76,7 +67,15 @@
 					<div></div>
 				</div>
 			</div>
-			
+			<%@ include file="dialogs/task.jsp"%>
+			<%@ include file="dialogs/table.jsp"%>
+			<%@ include file="dialogs/column.jsp"%>
+			<%@ include file="dialogs/load.jsp"%>
+			<%@ include file="dialogs/select.jsp"%>
+			<%@ include file="dialogs/match.jsp"%>
+			<%@ include file="dialogs/save.jsp"%>
+			<%@ include file="dialogs/var.jsp"%>
+			<%@ include file="dialogs/print.jsp"%>
 		</div>
 	</div>
 </body>
