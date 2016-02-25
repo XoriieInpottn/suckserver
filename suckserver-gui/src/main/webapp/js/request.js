@@ -56,7 +56,6 @@ function createTask(test) {
 			test : test,
 		},
 		success : function(result) {
-			console.log(result);
 			switch (result.status) {
 			case "success":
 				tid = result.tid;

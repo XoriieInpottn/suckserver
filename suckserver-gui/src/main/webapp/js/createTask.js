@@ -120,10 +120,12 @@ $(document).ready(function() {
 					alert("column name is illegal");
 					return;
 				}
-				var reg2 = /^string$|^text$|^int$|^float$|^double$|^bool$|^boolean$/;
-				if(checkIsIllegal(reg2,"column-type")) {
-					alert("column type is illegal");
-					return;
+				if($("#column-type").val() != "") {
+					var reg2 = /^string$|^text$|^int$|^float$|^double$|^bool$|^boolean$/;
+					if(checkIsIllegal(reg2,"column-type")) {
+						alert("column type is illegal");
+						return;
+					}
 				}
 				if ($("#column-type").val() == "") {
 					$("#column-type").val("text");
@@ -428,6 +430,7 @@ $(document).ready(function() {
 			if(name != "task")
 			treeview.treeview("removeNode", node);
 		}
+		master.treeviewnode("setSelect");
 	});
 	$("#btn-up").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
