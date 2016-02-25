@@ -32,5 +32,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="remove-task" class="org.lioxa.ustc.suckserver.action.RemoveTaskAction">
+			<result name="done" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>

@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.ui-treeview .ui-treeview-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 2px 0 0 0;
+	padding: .5em .5em .5em .7em;
+	min-height: 0;
+	font-size: 100%;
+	padding-left: 2.2em;
+}
+
+.ui-treeview .ui-treeview-header .ui-treeview-header-icon {
+	position: absolute;
+	left: .5em;
+	top: 50%;
+	margin-top: -8px
+}

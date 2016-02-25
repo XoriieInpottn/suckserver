@@ -2,6 +2,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="ui-nav">
 	<div class="ui-brand">
-		<a href="#">Suckserver</a>
+		<a href="#" style="font-weight:bold; font-size:20px">Suckserver</a>
 	</div>
 </div>

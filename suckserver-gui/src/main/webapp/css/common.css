@@ -94,6 +94,16 @@ a:hover {
 	background: #ccc;
 }
 
+.side-a{
+	font-size:18px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight:bold;
+}
+
+.ui-sidebar>.ui-state-active {
+	background:#bfbfbf;
+}
+
 .ui-main {
 	position: absolute;
 	left: 201px;

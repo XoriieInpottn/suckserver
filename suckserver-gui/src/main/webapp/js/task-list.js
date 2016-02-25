@@ -2,6 +2,8 @@
  * The entry.
  */
 $(document).ready(function() {
+	$("#task-list").addClass("ui-state-active");
+	$("#add-task").removeClass("ui-state-active");
 	//
 	// Item list.
 	$(".datalist").datalist({
@@ -17,6 +19,8 @@ $(document).ready(function() {
 				icons : {
 					primary : "ui-icon-trash"
 				}
+			}).click(function() {
+				removeTask(data);
 			});
 			item.find("div:last").hide();
 			item.mouseover(function() {
@@ -91,4 +95,28 @@ function onDataLoaded(e, data) {
 		task.status = "Error";
 		break;
 	}
+}
+
+function removeTask(data) {
+	var tid = data[0].id;
+	if (!tid) {
+		return;
+	}
+	if (!confirm("Do you really want to remove task \"" + data[0].name + "\" ?")) {
+		return;
+	}
+	$.ajax({
+		type : "POST",
+		url : URL_REMOVE_TASK,
+		data : {
+			tid : tid
+		},
+		success : function(result) {
+			switch (result.status) {
+			case "success":
+				$(".datalist").datalist("refresh");
+				break;
+			}
+		}
+	});
 }

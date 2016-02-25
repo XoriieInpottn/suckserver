@@ -13,3 +13,18 @@
 .ui-main {
 	top: 201px;
 }
+
+table {
+	font-size:16px;
+	font-weight:bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	margin-left:25px;
+}
+
+table tr {
+	height:45px;
+}
+
+table td {
+	width:300;
+}

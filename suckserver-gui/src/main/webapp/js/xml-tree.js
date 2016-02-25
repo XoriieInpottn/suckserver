@@ -10,7 +10,7 @@ var NODE_NAME_MAP = {
 	match : "文字匹配",
 	save : "保存表",
 	print : "输出",
-    "var" : "临时存储"
+	"var" : "临时存储"
 };
 
 var ATTR_NAME_MAP = {
@@ -73,10 +73,6 @@ function _createTree(elem) {
 	if (childNodes.length > 0) {
 		node.nodes = childNodes;
 	}
-	/*
-	 * add text
-	 */
-	addNodeText(node);
 	return node;
 }
 
@@ -101,7 +97,32 @@ function addNodeText(node) {
 	}
 	node.text = text;
 }
-
+/*
+ * get content of a node
+ */
+function getContext(node) {
+	if(node.data.name == undefined) {
+		return;
+	}
+//	var text = nodeNameToText(node.data.name);
+	var text = node.data.name;
+	var params = node.data.params;
+	var arr = [];
+	var count = 0;
+	for ( var i in params) {
+		if (count >= 2) {
+			break;
+		}
+//		var name = attrNameToText(i);
+		var name = i;
+		var value = params[i];
+		arr[arr.length] = name + ": " + value;
+	}
+	if (arr.length > 0) {
+		text += " (" + arr.join(", ") + ")";
+	}
+	return text;
+}
 /*
  * get text from the map
  */
@@ -138,7 +159,7 @@ function treeToXML(root, level, str) {
 	}
 	//
 	// get name and params
-	var data = root.data;
+	var data = root.treeviewnode("getData").data;
 	if (!data) {
 		console.error("Invalid tree node.");
 		return;
@@ -160,10 +181,11 @@ function treeToXML(root, level, str) {
 	}
 	//
 	// nodes
-	if (root.nodes) {
-		str += ">\n"
-		for (i in root.nodes) {
-			str = treeToXML(root.nodes[i], level + 1, str);
+	var nodes = root.treeviewnode("getChildren");
+	if (nodes.length > 0) {
+		str += ">\n";
+		for (var i = 0; i < nodes.length; i++) {
+			str = treeToXML($(nodes.get(i)), level + 1, str);
 		}
 		for (var i = 0; i < level; i++) {
 			str += "    ";

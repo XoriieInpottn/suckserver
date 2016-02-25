@@ -23,6 +23,9 @@ $(document).ready(function() {
 });
 
 function stopTask() {
+	if (!confirm("Do you really want to stop this task ?")) {
+		return;
+	}
 	$.ajax({
 		type : "POST",
 		url : URL_STOP_TASK,
