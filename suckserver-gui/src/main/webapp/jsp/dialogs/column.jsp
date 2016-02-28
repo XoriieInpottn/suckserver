@@ -2,12 +2,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="dialog-column" title="Set column ">
 	<fieldset>
-		<label for="column-name">Name</label>
-		<input type="text" name="name" id="column-name" style="margin-left:10px;width:70%"/>
+		<label for="column-name"  style="display:block;margin-bottom:5px">Name</label>
+		<input type="text" name="name" id="column-name" style="display:block;width:100%"/>
 	</fieldset>
 	<fieldset>
-		<label>Type</label> 
+		<label  style="display:block;margin-bottom:5px">Type</label> 
 		<input type="text" class="form-control" id="column-type"
-				placeholder="text"  name="type" style="margin-left:17px;width:70%"/>
+				placeholder="text"  name="type" style="display:block;width:100%"/>
 	</fieldset>
 </div>

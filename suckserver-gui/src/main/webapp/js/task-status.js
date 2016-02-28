@@ -53,7 +53,6 @@ function showLogs() {
 	if (after != null) {
 		data.after = after;
 	}
-	console.log(data);
 	$.ajax({
 		type : "POST",
 		url : URL_GET_LOGS,
@@ -61,7 +60,6 @@ function showLogs() {
 		success : function(result) {
 			switch (result.status) {
 			case "success":
-				console.log(result.task);
 				var task = result.task;
 				var taskStat = result.taskStat;
 				$(".name").text(task.name);

@@ -8,10 +8,8 @@
 <link rel="stylesheet" href="<s:url value='/css/jquery-ui.min.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/common.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/task-status.css' />" />
-<link rel="stylesheet" href="<s:url value='/css/sidebar.css' />" />
 <script src="<s:url value="/js/jquery.min.js" />"></script>
 <script src="<s:url value="/js/jquery-ui.min.js" />"></script>
-<script src="<s:url value="/js/jquery.timers-1.1.2.js" />"></script>
 <script src="<s:url value="/js/common.js" />"></script>
 <script src="<s:url value="/js/task-status.js" />"></script>
 <%@ include file="actions.jsp"%>

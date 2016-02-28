@@ -102,7 +102,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-column").dialog({
 		autoOpen : false,
-		height : 250,
+		height : 300,
 		width : 350,
 		modal : true,
 		show : {
@@ -156,7 +156,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-load").dialog({
 		autoOpen : false,
-		height : 290,
+		height : 560,
 		width : 350,
 		modal : true,
 		show : {
@@ -172,7 +172,28 @@ $(document).ready(function() {
 				if($("#load-maxPage").val() != "") {
 					var reg = /^[1-9]\d*|0$/;
 					if(checkIsIllegal(reg,"load-maxPage")) {
-						alert("maxPage is illegal");
+						alert("MaxPage is illegal");
+						return;
+					}
+				}
+				if($("#load-from").val() != "") {
+					var reg = /^[1-9]\d*|0$/;
+					if(checkIsIllegal(reg,"load-from")) {
+						alert("From is illegal");
+						return;
+					}
+				}
+				if($("#load-to").val() != "") {
+					var reg = /^[1-9]\d*|0$/;
+					if(checkIsIllegal(reg,"load-to")) {
+						alert("To is illegal");
+						return;
+					}
+				}
+				if($("#load-step").val() != "") {
+					var reg = /^[1-9]\d*|0$/;
+					if(checkIsIllegal(reg,"load-step")) {
+						alert("Step is illegal");
 						return;
 					}
 				}
@@ -241,7 +262,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-match").dialog({
 		autoOpen : false,
-		height : 400,
+		height : 560,
 		width : 350,
 		modal : true,
 		show : {
@@ -368,7 +389,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-print").dialog({
 		autoOpen : false,
-		height : 230,
+		height : 300,
 		width : 350,
 		modal : true,
 		show : {
@@ -380,6 +401,13 @@ $(document).ready(function() {
 				if(checkIsNull("print-content")) {
 					alert("name cannot be null");
 					return;
+				}
+				if($("#print-html").val() != "") {
+					var reg = /^true$|^false$/;
+					if(checkIsIllegal(reg,"print-html")) {
+						alert("Html is illegal");
+						return;
+					}
 				}
 				form = getForm("dialog-print", "print");
 				var content = getContext(form);
@@ -403,14 +431,6 @@ $(document).ready(function() {
 		if (e.which == 13) {
 			e.preventDefault();
 			$(this).parent().find("button:eq(1)").click();
-		}
-	});
-	$("#xml_text").keydown(function(e) {
-		if (e.ctrlKey == true && e.keyCode == 83) {
-			e.preventDefault();
-			var str = $("#xml_text").val();
-			var tree = xmlToTree(str);
-			console.log(tree);
 		}
 	});
 	$("#btn-edit").button().click(function() {
