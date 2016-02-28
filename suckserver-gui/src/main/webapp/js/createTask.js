@@ -506,7 +506,12 @@ $(document).ready(function() {
 			$(".cmd-group button:lt(4)").attr('disabled', false);
 			$(".button-group button").attr('disabled', false);
 			treeview.treeview("empty");
-			var str = $("#xml_text").val();
+			var str = $("#xml_text").val().trim();
+			var str1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+			if(str == "" || str == str1) {
+				str = "<task name=\"Untitled task\" />";
+			}
+			$("#xml_text").val(str);
 			var t = xmlToTree(str);
 			master = treeview.treeview("createTree",t);
 			master.treeviewnode("setSelect");
