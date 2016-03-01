@@ -23,15 +23,15 @@ public class Main {
 
     /**
      * The default path of the configuration file.<br/>
-     * In a *nux system, the default path is /etc/suckserverd.xml.
+     * In a *nux system, the default path is ./suckserverd.xml.
      */
-    public static final String CONF_FILE = "/etc/suckserverd.xml";
+    public static final String CONF_FILE = "suckserverd.xml";
     public static final CompositeConfiguration conf = new CompositeConfiguration();
 
     public static void main(String[] args) {
         try {
             parseCommandLine(buildOptions(), args);
-            loadConfiguration(new File("CONF_FILE"));
+            loadConfiguration(new File(CONF_FILE));
             //
             // start daemon
             String host = conf.getString("listen-host");

@@ -6,4 +6,5 @@
 		<user>postgres</user>
 		<passwd>postgres</passwd>
 	</db>
+	<listen-port>38324</listen-port>
 </suckserver>
