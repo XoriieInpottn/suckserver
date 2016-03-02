@@ -74,12 +74,14 @@ function showLogs() {
 					after = log.time;
 					if (log.type == 0) {
 						appendLog(log.content, {
-							time : after
+							time : after,
+							id : log.id
 						});
 					} else {
 						appendLog(log.content, {
 							time : after,
-							color : "red"
+							color : "red",
+							id : log.id
 						});
 					}
 				}
@@ -130,8 +132,12 @@ function appendLog(log, options) {
 	if (options != undefined) {
 		var time = options.time;
 		var color = options.color;
+		var id = options.id;
 	}
 	var html = "<p>";
+	if(id != undefined) {
+		html = "<p id = "+id+">";
+	}
 	if (time != undefined) {
 		html += "<span  style=\"color:#777\">" + time + "</span>";
 		html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -142,6 +148,10 @@ function appendLog(log, options) {
 		html += "<span  style=\"color:" + color + "\">" + log + "</span>";
 	}
 	html += "</p>";
+	var lid = $("#main-bottom > div p:last").attr("id");
+	if(id != undefined && lid != undefined && id == lid) {
+		return;
+	}
 	$(".log-box>div").append(html);
 	if ($(".log-box>div").children().length > 1000) {
 		$(".log-box>div span:first").remove();
