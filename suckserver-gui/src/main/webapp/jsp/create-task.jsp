@@ -61,6 +61,7 @@
 						<button id="btn-save" class="margin-s">Save</button>
 						<button id="btn-print" class="margin-s">Print</button>
 						<button id="btn-var" class="margin-s">Var</button>
+						<button id="btn-scan" class="margin-s">Scan</button>
 					</div>
 				</div>
 				<div id="main-bottom">
@@ -76,6 +77,7 @@
 			<%@ include file="dialogs/save.jsp"%>
 			<%@ include file="dialogs/var.jsp"%>
 			<%@ include file="dialogs/print.jsp"%>
+			<%@ include file="dialogs/scan.jsp"%>
 		</div>
 	</div>
 </body>

@@ -433,6 +433,41 @@ $(document).ready(function() {
 			$(this).parent().find("button:eq(1)").click();
 		}
 	});
+	$("#dialog-scan").dialog({
+		autoOpen : false,
+		height : 440,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				form = getForm("dialog-scan", "scan");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-scan").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-scan").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm();
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
 	$("#btn-edit").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
@@ -515,6 +550,12 @@ $(document).ready(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
 			$("#dialog-var").dialog("open");
+		}
+	});
+	$("#btn-scan").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-scan").dialog("open");
 		}
 	});
 	$("#tabs").tabs();
