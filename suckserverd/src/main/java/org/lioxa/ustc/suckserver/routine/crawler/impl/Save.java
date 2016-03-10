@@ -23,6 +23,11 @@ public class Save extends CrawlerRoutine {
 
     @Param(name = "table", essential = true)
     String table;
+    
+    //
+    //add the timeStamp to the table
+    long currentTime = 0L;
+    int currentTimeCount = 0;
 
     //
     // execution
@@ -56,6 +61,25 @@ public class Save extends CrawlerRoutine {
             }
             row.put(col, value);
         }
+        //
+        //make sure that cannot insert a instance more than 1000 times per 1000ms
+        long t = System.currentTimeMillis();
+        if(currentTime == t) {
+        	currentTimeCount ++;
+        	if(currentTimeCount >= 1000) {
+            	try {
+            		Thread.sleep(1); 
+            		} catch(InterruptedException ex) {
+            		Thread.currentThread().interrupt();
+            		currentTimeCount = 0;
+            	}
+            	t = System.currentTimeMillis();
+            }
+        } else {
+        	 currentTimeCount = 0;
+        }
+        currentTime = t;
+        row.put("_timeStamp", currentTime);
         //
         // make SQL
         String[] cols = row.keySet().toArray(new String[0]);

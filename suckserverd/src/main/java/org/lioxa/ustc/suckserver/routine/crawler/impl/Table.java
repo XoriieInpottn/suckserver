@@ -100,6 +100,7 @@ public class Table extends CrawlerRoutine {
         StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
         sb.append(tblInfo.getName());
         sb.append(" (id SERIAL PRIMARY KEY, ");
+        sb.append("_timeStamp bigint,");
         for (Entry<String, String> entry : tblInfo.entrySet()) {
             String colName = entry.getKey();
             String colType = entry.getValue();
