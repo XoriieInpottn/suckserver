@@ -63,22 +63,35 @@ public class Save extends CrawlerRoutine {
         }
         //
         //make sure that cannot insert a instance more than 1000 times per 1000ms
+        if(!this.globalContext.getVars().containsKey("currentTime")) {
+        	this.globalContext.getVars().put("currentTime", "0");
+        	this.globalContext.getVars().put("currentTimeCount", "0");
+        	this.currentTime = 0;
+        	this.currentTimeCount = 0;
+        } else {
+        	this.currentTime = Long.parseLong(this.globalContext.getVars().get("currentTime").toString());
+        	this.currentTimeCount = Integer.parseInt(this.globalContext.getVars().get("currentTimeCount").toString());
+        }
         long t = System.currentTimeMillis();
         if(currentTime == t) {
         	currentTimeCount ++;
+        	this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
         	if(currentTimeCount >= 1000) {
             	try {
             		Thread.sleep(1); 
             		} catch(InterruptedException ex) {
             		Thread.currentThread().interrupt();
             		currentTimeCount = 0;
+            		this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
             	}
             	t = System.currentTimeMillis();
             }
         } else {
         	 currentTimeCount = 0;
+        	 this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
         }
         currentTime = t;
+        this.globalContext.getVars().put("currentTime", currentTime);
         row.put("_timeStamp", currentTime);
         //
         // make SQL
