@@ -1,5 +1,6 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -76,7 +77,8 @@ public class Scan extends CrawlerRoutine {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<String> scan(long after) throws ExecutionException {
-		List<String> result;
+		List<Object> result;
+		List<String> r = new ArrayList<>();
 		String sql = "SELECT " + this.field + " FROM " + this.name + " ORDER BY _timestamp ASC";
 		String sql2 =  "SELECT MAX(_timestamp) FROM " + this.name;
 		if (after > 0) {
@@ -104,6 +106,9 @@ public class Scan extends CrawlerRoutine {
 		} finally {
 			dbSession.close();
 		}
-		return result;
+		for(int i = 0; i < result.size(); i++) {
+			r.add(result.get(i).toString());
+		}
+		return r;
 	}
 }

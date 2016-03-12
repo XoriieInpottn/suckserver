@@ -1,5 +1,6 @@
 var tid = undefined;
-
+var list = new Array();
+var i = 0;
 $(document).ready(function() {
 	$("#btn-test").click(function() {
 		if(isTree) {
@@ -167,7 +168,6 @@ function stopTask() {
 		}
 	});
 }
-
 function appendLog(log, options) {
 	if (options != undefined) {
 		var time = options.time;
@@ -188,9 +188,14 @@ function appendLog(log, options) {
 		html += "<span  style=\"color:" + color + "\">" + log + "</span>";
 	}
 	html += "</p>";
-	var lid = $("#main-bottom > div p:last").attr("id");
-	if(id != undefined && lid != undefined && id == lid) {
-		return;
+	if(id != undefined) {
+		for (x in list) {
+			if(id == list[x]){
+				return;
+			}
+		}
+		list[i] = id;
+		i = (i + 1)%100;
 	}
 	$("#main-bottom>div").append(html);
 	if ($("#main-bottom>div").children().length > 1000) {

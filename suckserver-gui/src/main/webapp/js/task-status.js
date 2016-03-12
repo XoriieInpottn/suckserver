@@ -1,6 +1,7 @@
 var tid = null;
 var after = null;
-
+var list = new Array();
+var i = 0;
 /*
  * The entry.
  */
@@ -148,9 +149,14 @@ function appendLog(log, options) {
 		html += "<span  style=\"color:" + color + "\">" + log + "</span>";
 	}
 	html += "</p>";
-	var lid = $("#main-bottom > div p:last").attr("id");
-	if(id != undefined && lid != undefined && id == lid) {
-		return;
+	if(id != undefined) {
+		for (x in list) {
+			if(id == list[x]){
+				return;
+			}
+		}
+		list[i] = id;
+		i = (i + 1)%100;
 	}
 	$(".log-box>div").append(html);
 	if ($(".log-box>div").children().length > 1000) {
