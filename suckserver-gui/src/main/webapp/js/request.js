@@ -38,6 +38,9 @@ function appendError(error) {
 
 function clearLog() {
 	$("#main-bottom>div").empty();
+	i = 0;
+	list = null;
+	list = new Array();
 	appendLog("Waiting for a new task ~~~ :-)");
 }
 
@@ -65,6 +68,8 @@ function createTask(test) {
 					$("#btn-quit").attr('disabled', false);
 					$("#btn-submit").attr('disabled', true);
 					$("#main-bottom>div").empty();
+					i = 0;
+					list = new Array();
 					appendLog("开始爬取数据，任务ID：" + tid);
 					showLogs();
 				}

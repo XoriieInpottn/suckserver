@@ -56,6 +56,45 @@ $(document).ready(function() {
 			$(this).parent().find("button:eq(1)").click();
 		}
 	});
+	$("#dialog-subtask").dialog({
+		autoOpen : false,
+		height : 200,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("subtask-name")) {
+					alert("name cannot be null");
+					return;
+				}
+				form = getForm("dialog-subtask", "subtask");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-subtask").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-subtask").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm();
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
 	$("#dialog-table").dialog({
 		autoOpen : false,
 		height : 250,
@@ -223,7 +262,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-select").dialog({
 		autoOpen : false,
-		height : 240,
+		height : 350,
 		width : 350,
 		modal : true,
 		show : {
@@ -232,10 +271,6 @@ $(document).ready(function() {
 		},
 		buttons : {
 			"OK" : function() {
-				if(checkIsNull("select-path")) {
-					alert("path cannot be null");
-					return;
-				}
 				form = getForm("dialog-select", "select");
 				var content = getContext(form);
 				var node = master.treeviewnode("getSelectedNode");
@@ -252,7 +287,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-select");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -504,6 +539,12 @@ $(document).ready(function() {
 	$("#btn-test").button();
 	$("#btn-submit").button();
 	$("#btn-quit").button();
+	$("#btn-subtask").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-subtask").dialog("open");
+		}
+	});
 	$("#btn-table").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
@@ -630,11 +671,23 @@ function emptyForm() {
 	});
 }
 //
+//empty a form 
+function emptyForm(name) {
+	$("#"+ name + " input").each(function() {
+		if ($(this).attr('type') == "text") {
+			$(this).val("");
+		}
+		if ($(this).attr('type') == "radio") {
+			$("#"+name+" input:radio:eq(0)").click();
+		}
+	});
+}
+//
 // bind data for Form when edit
 function bindForm(dialogName, node) {
 	var params = node.data.params;
 	for ( var key in params) {
-		if (key == "overlap") {
+		if (key == "overlap" || key == "isJSON") {
 			$(
 					"#" + dialogName + " input[name=" + key + "][value="
 							+ params[key] + "]").click();
