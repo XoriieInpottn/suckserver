@@ -250,5 +250,15 @@ public class CrawlerContext implements Context {
     public synchronized void setStopReq(boolean stopReq) {
         this.stopReq = stopReq;
     }
+   
+	private Browser browserDriver;
+	
+    public Browser getBrowserDriver() {
+		return browserDriver;
+	}
+
+	public void setBrowserDriver(Browser browserDriver) {
+		this.browserDriver = browserDriver;
+	}
 
 }

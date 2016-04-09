@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task name="信息爬取"> 
+	<load1 url = "http://www.tianya.cn/"> 
+		<type path="#text1" value="xiaohebian2016" />
+		<type path="#password1" value="123124125abc" />
+		<Click path="#button1"  />
+	    <drop count="1" time="5000" />
+		<select1 path=".bd-text">
+			<LinkClick path=".at-link" closeBefore="false">
+					<print1 content="************" />
+					<match1 var="title" path=".s_title>span" />
+					<print1 content="title: $title" />
+					<match1 var="time" path=".atl-menu > div:nth-child(2) > span:nth-child(2)" />
+					<print1 content="time: $time" />
+			</LinkClick>
+		</select1>
+	</load1>
+</task>

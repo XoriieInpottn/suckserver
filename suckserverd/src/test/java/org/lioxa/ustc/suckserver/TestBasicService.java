@@ -30,7 +30,7 @@ public class TestBasicService {
         }
         String template;
         try {
-            template = FileUtils.readFileToString(new File("./templates/task.xml"));
+            template = FileUtils.readFileToString(new File("./task_tianya.xml"));
         } catch (IOException e) {
             System.err.println(getMessages(e));
             return;
@@ -44,7 +44,7 @@ public class TestBasicService {
             return;
         }
         System.out.println(tid);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 2000; i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

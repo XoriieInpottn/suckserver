@@ -16,7 +16,7 @@ public class TestTemplate {
 
     public static void main(String[] args) throws TemplateException {
         TemplateReader reader = new TemplateReader();
-        TemplateNode tpl = reader.read(new File("./templates/task.xml"));
+        TemplateNode tpl = reader.read(new File("task.xml"));
         printDOM(tpl, 0);
         System.out.println("complete");
     }
