@@ -1,5 +1,6 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
+import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
@@ -29,17 +30,32 @@ public class Click extends CrawlerRoutine {
             return;
         }
         WebElement element = (WebElement) this.getMasterContext().get("dom");
+        long tid = this.globalContext.getRunnableTask().getId();
         if(this.path.length() != 0) {
         	if(element != null) {
-        		element = element.findElement(By.cssSelector(path));
+        		try {
+					element = this.globalContext.getBrowserDriver().findElement(element, path, time);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		if(element == null) {
+        			Loggers.getDefault().writeLog(tid, "The path of Click is invalid!");
+        			return;
+        		}
+//        		element = element.findElement(By.cssSelector(path));
         	} else {
         		element = this.globalContext.getBrowserDriver().findElement(By.cssSelector(path));
         	}
     	}
         for(int i = 0; i < this.count; i++) {
-        	element.click();
+//        	element.click();
+        	if(!this.globalContext.getBrowserDriver().click(element, time)) {
+        		Loggers.getDefault().writeLog(tid, "The command of click cannot make effect!");
+        		return;
+        	}
         	try {
-				Thread.sleep(time);
+				Thread.sleep(time*1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

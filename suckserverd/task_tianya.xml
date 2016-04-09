@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<task name="信息爬取"> 
+<task name="信息爬取" accept="image"> 
 	<load1 url = "http://www.tianya.cn/"> 
 		<type path="#text1" value="xiaohebian2016" />
 		<type path="#password1" value="123124125abc" />
 		<Click path="#button1"  />
-	    <drop count="1" time="5000" />
+	    <drop count="2" time="5" />
+	    <Click count="2" path=".sj-feed-load" time="5"/>
 		<select1 path=".bd-text">
 			<LinkClick path=".at-link" closeBefore="false">
 					<print1 content="************" />

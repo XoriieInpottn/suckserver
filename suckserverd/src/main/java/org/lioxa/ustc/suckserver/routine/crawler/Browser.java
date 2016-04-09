@@ -10,14 +10,17 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Browser {
-	private FirefoxDriver firefoxDriver;
+	private WebDriver firefoxDriver;
 
-	public FirefoxDriver getFirefoxDriver() {
+	public WebDriver getFirefoxDriver() {
 		return firefoxDriver;
 	}
 
@@ -185,16 +188,28 @@ public class Browser {
 		return this.firefoxDriver.findElements(by);
 	}
 	
-	public WebElement findElement(By by) {
-		return this.firefoxDriver.findElement(by);
+	public WebElement findElement(final By by) {
+		try{
+			WebElement e = (new WebDriverWait( this.firefoxDriver, 10)) .until(
+			    new ExpectedCondition< WebElement>(){
+			        @Override
+			        public WebElement apply( WebDriver d) {
+			            return d.findElement(by);
+			        }
+			    }
+			);
+			return e;
+		}catch(Exception ee) {
+			return null;
+		}
 	}
 	
 	public List<WebElement> selectElements(String cssPath) {
-		return this.firefoxDriver.findElementsByCssSelector(cssPath);
+		return this.firefoxDriver.findElements(By.cssSelector(cssPath));
 	}
 	
 	public WebElement selectElement(String cssPath) {
-		return this.firefoxDriver.findElementByCssSelector(cssPath);
+		return this.findElement(By.cssSelector(cssPath));
 	}
 	
 	public boolean isWebElementExits(By selector) {
@@ -224,9 +239,9 @@ public class Browser {
 	 */
 	public void scrollDown(long time) {
 		String js = "var q=document.documentElement.scrollTop=1000000";
-		this.firefoxDriver.executeScript(js, 0);
+		((JavascriptExecutor) this.firefoxDriver).executeScript(js, 0);
 		try {
-			Thread.sleep(time);
+			Thread.sleep(time*1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -245,6 +260,62 @@ public class Browser {
 	 */
 	public void quit() {
 		this.firefoxDriver.quit();
+	}
+	
+	/**
+	 * this is to find a element of a elem
+	 * @param elem
+	 * @param cssPath
+	 * @param time
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public WebElement findElement(WebElement elem, String cssPath, int time) throws InterruptedException {
+		WebElement element = null;
+		try{
+			element = elem.findElement(By.cssSelector(cssPath));
+		}catch(NoSuchElementException e){
+			for(int i = 0; i < time; i++) {
+				try {
+					Thread.sleep(time*500);
+					element = elem.findElement(By.cssSelector(cssPath));
+					break;
+				} catch(NoSuchElementException ee) {
+					continue;
+				}
+			}
+		}
+		return element;
+	}
+	/**
+	 * this is to used to click a element
+	 * @param elem
+	 * @param time
+	 * @return
+	 */
+	public boolean click(WebElement elem, int time) {
+		try {
+			elem.click();
+			return true;
+		} catch (Exception e) {
+			if(e.getMessage().contains("Element is not clickable at point")) {
+				int i;
+				for(i = 0; i < time; i++) {
+					try{
+						this.scrollDown(0);
+						Thread.sleep(time*500);
+						elem.click();
+						break;
+					} catch (Exception ee) {
+						continue;
+					}
+				}
+				if(i < time) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

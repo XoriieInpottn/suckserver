@@ -1,6 +1,5 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
-//import org.lioxa.ustc.suckserver.Main;
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
@@ -38,13 +37,21 @@ public class Load1 extends CrawlerRoutine {
 		  }
 		  this.goPage();
 		  for(int i = 1; i < this.maxPage; i++) {
+			  long tid = this.globalContext.getRunnableTask().getId();
 			  if(nextPath == null) {
-				  long tid = this.globalContext.getRunnableTask().getId();
 				  Loggers.getDefault().writeError(tid, "nextPath of Load cannot be null!");
 				  return;
 			  }
 			  WebElement element = this.globalContext.getBrowserDriver().findElement(By.cssSelector(nextPath));
-			  element.click();
+//			  element.click();
+			  if(element == null) {
+				  Loggers.getDefault().writeLog(tid, "Load cannot go to the next Page!");
+				  return;
+			  }
+			  if(!this.globalContext.getBrowserDriver().click(element, 2)) {
+				  Loggers.getDefault().writeLog(tid, "Load cannot click the element!");
+				  return;
+			  }
 			  this.globalContext.getBrowserDriver().windowForwardWithoutBefore();
 			  this.goPage();
 		  }

@@ -48,11 +48,10 @@ public class Task extends CrawlerRoutine {
     	Browser browserDriver = new Browser("./@suckin-0.0.1.xpi");
     	//***************************
     	//需要重写！！！！
-//    	if(this.accept != null) {
-//    		String a[] = {accept};
-//    		browserDriver.setAccept(a);
-//    	}
-   // 	this.globalContext.getVars().put("BrowserDriver", browserDriver);
+    	if(this.accept != null) {
+    		String a[] = {accept};
+    		browserDriver.setAccept(a);
+    	}
     	this.globalContext.setBrowserDriver(browserDriver);
         this.executeSubRoutines();
     }

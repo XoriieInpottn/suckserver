@@ -4,11 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -110,8 +110,20 @@ public class Match1 extends CrawlerRoutine {
             throw e;
         }
         String rawStr;
+        long tid = this.globalContext.getRunnableTask().getId();
         if (this.path != null) {
-        	 WebElement elems = dom.findElement(By.cssSelector(this.path));
+        	// WebElement elems = dom.findElement(By.cssSelector(this.path));
+        	WebElement elems = null;
+			try {
+				elems = this.globalContext.getBrowserDriver().findElement(dom, this.path, 5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
+			if(elems == null) {
+				Loggers.getDefault().writeLog(tid, "Match cannot find the element");
+				this.globalContext.getVars().put(this.var, "THE ELEMENT IS NULL!");
+				return;
+			}
             rawStr = this.attr == null ? elems.getText() : elems.getAttribute(this.attr);
         } else {
             rawStr = this.attr == null ? dom.getText() : dom.getAttribute(this.attr);
@@ -142,17 +154,5 @@ public class Match1 extends CrawlerRoutine {
         // join these sub patterns
         String value = StringUtils.join(matches, " ");
         this.globalContext.getVars().put(this.var, value);
-//        if (this.path != null) {
-//       	 	WebElement elems = dom.findElement(By.cssSelector(this.path));
-//       	 	elems.click();
-//       	 	this.globalContext.getBrowserDriver().windowForward();
-//       	 	try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//       	 	this.globalContext.getBrowserDriver().windowBack();
-//       	 }
     }
 }
