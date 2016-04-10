@@ -4,19 +4,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.lioxa.ustc.suckserver.log.Loggers;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
-import org.openqa.selenium.WebElement;
 
 /**
  *
  * @author xi
  * @since Nov 21, 2015
  */
-public class Match1 extends CrawlerRoutine {
+public class Match_bak extends CrawlerRoutine {
 
     @Param(name = "var", essential = true)
     String var;
@@ -98,7 +98,7 @@ public class Match1 extends CrawlerRoutine {
         this.globalContext.getVars().remove(this.var);
         //
         // get raw string from DOM
-        WebElement dom = (WebElement) this.getMasterContext().get("dom");
+        Element dom = (Element) this.getMasterContext().get("dom");
         if (dom == null) {
             //
             // If there is no DOM in current context:
@@ -110,23 +110,11 @@ public class Match1 extends CrawlerRoutine {
             throw e;
         }
         String rawStr;
-        long tid = this.globalContext.getRunnableTask().getId();
         if (this.path != null) {
-        	// WebElement elems = dom.findElement(By.cssSelector(this.path));
-        	WebElement elems = null;
-			try {
-				elems = this.globalContext.getBrowserDriver().findElement(dom, this.path, 5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			}
-			if(elems == null) {
-				Loggers.getDefault().writeLog(tid, "Match cannot find the element");
-				this.globalContext.getVars().put(this.var, "THE ELEMENT IS NULL!");
-				return;
-			}
-            rawStr = this.attr == null ? elems.getText() : elems.getAttribute(this.attr);
+            Elements elems = dom.select(this.path);
+            rawStr = this.attr == null ? elems.text() : elems.attr(this.attr);
         } else {
-            rawStr = this.attr == null ? dom.getText() : dom.getAttribute(this.attr);
+            rawStr = this.attr == null ? dom.text() : dom.attr(this.attr);
         }
         //
         // matcher and find sub patterns

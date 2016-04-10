@@ -1,7 +1,9 @@
 package org.lioxa.ustc.suckserver.routine.crawler;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -249,6 +251,21 @@ public class Browser {
 	}
 	
 	/**
+	 * make the scroll top
+	 * @param time
+	 */
+	public void scrollTop(long time) {
+		String js = "var q=document.documentElement.scrollTop=0";
+		((JavascriptExecutor) this.firefoxDriver).executeScript(js, 0);
+		try {
+			Thread.sleep(time*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * close the current window.
 	 */
 	public void close() {
@@ -302,7 +319,11 @@ public class Browser {
 				int i;
 				for(i = 0; i < time; i++) {
 					try{
-						this.scrollDown(0);
+						if(i%2 == 0) { 
+							this.scrollDown(0);
+						} else {
+							this.scrollTop(0);
+						}
 						Thread.sleep(time*500);
 						elem.click();
 						break;
@@ -316,6 +337,25 @@ public class Browser {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * set the userAgent automatically according to the file
+	 * @param path : the path of file which includes a lot of userAgent
+	 * @throws IOException
+	 */
+	public void autoSetUserAgent(String path) throws IOException {
+		File file = new File(path);
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String tmpString = null;
+		List<String> userAgentList = new ArrayList<>();
+		while((tmpString = reader.readLine()) != null) {
+			userAgentList.add(tmpString);
+		}
+		double rand = Math.random();
+		int i = (int)(rand*(userAgentList.size() - 1));
+		this.setUserAgent(userAgentList.get(i));
+		reader.close();
 	}
 
 }

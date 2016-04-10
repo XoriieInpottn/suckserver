@@ -1,10 +1,10 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
-import org.jsoup.nodes.Element;
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
+import org.openqa.selenium.WebElement;
 
 /**
  *
@@ -29,11 +29,15 @@ public class Print extends CrawlerRoutine {
             Loggers.getDefault().writeLog(tid, this.content);
             return;
         }
-        Element dom = (Element) this.getMasterContext().get("dom");
+        WebElement dom = (WebElement) this.getMasterContext().get("dom");
+        
         if (dom == null) {
             return;
         }
-        Loggers.getDefault().writeLog(tid, this.html ? dom.html() : dom.text());
+//        System.out.println("*************************************");
+//        System.out.println(dom.getText());
+//        System.out.println("*************************************");
+        Loggers.getDefault().writeLog(tid, dom.getText());
     }
 
 }

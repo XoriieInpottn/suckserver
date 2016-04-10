@@ -38,22 +38,24 @@ public class Task extends CrawlerRoutine {
     @Param(name = "name", essential = true)
     String name;
     
-    @Param(name = "accept")
-    String accept;
+    @Param(name = "disallow")
+    String disallow;
+    
+    @Param(name = "switchUA")
+    boolean switchUA; 
     
     @Override
     public void exec() throws ParameterException, ExecutionException {
 //    	System.setProperty("webdriver.firefox.bin", "/home/kevin/Desktop/firefox/firefox");
     	System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
     	Browser browserDriver = new Browser("./@suckin-0.0.1.xpi");
-    	//***************************
-    	//需要重写！！！！
-    	if(this.accept != null) {
-    		String a[] = {accept};
-    		browserDriver.setAccept(a);
+    	if(this.disallow != null) {
+    		String s[] = disallow.split(",");
+    		browserDriver.setAccept(s);
     	}
     	this.globalContext.setBrowserDriver(browserDriver);
         this.executeSubRoutines();
+        this.globalContext.getBrowserDriver().quit();
     }
 
 }

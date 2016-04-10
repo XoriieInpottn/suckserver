@@ -30,7 +30,7 @@ public class TestBasicService {
         }
         String template;
         try {
-            template = FileUtils.readFileToString(new File("./task_tianya.xml"));
+            template = FileUtils.readFileToString(new File("./task_fh.xml"));
         } catch (IOException e) {
             System.err.println(getMessages(e));
             return;
