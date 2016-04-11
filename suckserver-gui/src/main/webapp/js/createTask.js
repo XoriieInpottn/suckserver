@@ -19,7 +19,7 @@ $(document).ready(function() {
 	master.treeviewnode("setSelect");
 	$("#dialog-task").dialog({
 		autoOpen : false,
-		height : 200,
+		height : 400,
 		width : 350,
 		modal : true,
 		show : {
@@ -195,7 +195,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-load").dialog({
 		autoOpen : false,
-		height : 560,
+		height : 400,
 		width : 350,
 		modal : true,
 		show : {
@@ -204,35 +204,14 @@ $(document).ready(function() {
 		},
 		buttons : {
 			"OK" : function() {
-				if(checkIsNull("load-url")) {
-					alert("url cannot be null");
-					return;
-				}
 				if($("#load-maxPage").val() != "") {
 					var reg = /^[1-9]\d*|0$/;
 					if(checkIsIllegal(reg,"load-maxPage")) {
 						alert("MaxPage is illegal");
 						return;
 					}
-				}
-				if($("#load-from").val() != "") {
-					var reg = /^[1-9]\d*|0$/;
-					if(checkIsIllegal(reg,"load-from")) {
-						alert("From is illegal");
-						return;
-					}
-				}
-				if($("#load-to").val() != "") {
-					var reg = /^[1-9]\d*|0$/;
-					if(checkIsIllegal(reg,"load-to")) {
-						alert("To is illegal");
-						return;
-					}
-				}
-				if($("#load-step").val() != "") {
-					var reg = /^[1-9]\d*|0$/;
-					if(checkIsIllegal(reg,"load-step")) {
-						alert("Step is illegal");
+					if(checkIsNull("load-nextPath")) {
+						alert("NextPath cannot be null");
 						return;
 					}
 				}
@@ -262,7 +241,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-select").dialog({
 		autoOpen : false,
-		height : 350,
+		height : 250,
 		width : 350,
 		modal : true,
 		show : {
@@ -271,6 +250,10 @@ $(document).ready(function() {
 		},
 		buttons : {
 			"OK" : function() {
+				if(checkIsNull("select-path")) {
+					alert("Path cannot be null");
+					return;
+				}
 				form = getForm("dialog-select", "select");
 				var content = getContext(form);
 				var node = master.treeviewnode("getSelectedNode");
@@ -297,7 +280,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-match").dialog({
 		autoOpen : false,
-		height : 560,
+		height : 400,
 		width : 350,
 		modal : true,
 		show : {
@@ -503,6 +486,162 @@ $(document).ready(function() {
 			$(this).parent().find("button:eq(1)").click();
 		}
 	});
+	$("#dialog-linkClick").dialog({
+		autoOpen : false,
+		height : 325,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("linkClick-path")) {
+					alert("Path of linkClick cannot be null.");
+					return;
+				}
+				form = getForm("dialog-linkClick", "linkClick");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-linkClick").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-linkClick").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm("dialog-linkClick");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
+	$("#dialog-click").dialog({
+		autoOpen : false,
+		height : 400,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("click-path")) {
+					alert("Path of click cannot be null.");
+					return;
+				}
+				form = getForm("dialog-click", "click");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-click").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-click").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm("dialog-click");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
+	$("#dialog-drop").dialog({
+		autoOpen : false,
+		height : 325,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				form = getForm("dialog-drop", "drop");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-drop").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-drop").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm("dialog-drop");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
+	$("#dialog-type").dialog({
+		autoOpen : false,
+		height : 325,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("type-path")) {
+					alert("the path of type cannot be null.");
+					return;
+				}
+				if(checkIsNull("type-value")) {
+					alert("the value of type cannot be null.");
+					return;
+				}
+				form = getForm("dialog-type", "type");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-type").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-type").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm("dialog-type");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
 	$("#btn-edit").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
@@ -597,6 +736,30 @@ $(document).ready(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
 			$("#dialog-scan").dialog("open");
+		}
+	});
+	$("#btn-linkClick").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-linkClick").dialog("open");
+		}
+	});
+	$("#btn-click").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-click").dialog("open");
+		}
+	});
+	$("#btn-type").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-type").dialog("open");
+		}
+	});
+	$("#btn-drop").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-drop").dialog("open");
 		}
 	});
 	$("#tabs").tabs();

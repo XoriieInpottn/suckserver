@@ -63,6 +63,10 @@
 						<button id="btn-var" class="margin-s">Var</button>
 						<button id="btn-scan" class="margin-s">Scan</button>
 						<button id="btn-subtask" class="margin-s">Subtask</button>
+						<button id="btn-linkClick" class="margin-s">LinkClick</button>
+						<button id="btn-click" class="margin-s">Click</button>
+						<button id="btn-type" class="margin-s">Type</button>
+						<button id="btn-drop" class="margin-s">Drop</button>
 					</div>
 				</div>
 				<div id="main-bottom">
@@ -80,6 +84,10 @@
 			<%@ include file="dialogs/print.jsp"%>
 			<%@ include file="dialogs/scan.jsp"%>
 			<%@ include file="dialogs/subtask.jsp"%>
+			<%@ include file="dialogs/linkClick.jsp"%>
+			<%@ include file="dialogs/click.jsp"%>
+			<%@ include file="dialogs/type.jsp"%>
+			<%@ include file="dialogs/drop.jsp"%>
 		</div>
 	</div>
 </body>

@@ -14,16 +14,4 @@
 		<label for="match-attr" style="display:block;margin-bottom:5px">Attr</label> 
 		<input type="text" id="match-attr" name="attr" style="display:block;width:100%" />
 	</fieldset>
-	<fieldset>
-		<label for="match-regexp" style="display:block;magin-bottom:5px">Regexp</label>
-		<input type="text" id="match-regexp" name="regexp"  style="display:block;width:100%" />
-	</fieldset>
-	<fieldset>
-		<label for="match-flags" style="display:block;magin-bottom:5px">Flags</label>
-		<input type="text" id="match-flags" name="flags"  style="display:block;width:100%" />
-	</fieldset>
-	<fieldset>
-		<label for="match-index" style="display:block;magin-bottom:5px">Index</label>
-		<input type="text" id="match-index" name="index"  style="display:block;width:100%" />
-	</fieldset>
 </div>
