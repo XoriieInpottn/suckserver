@@ -30,7 +30,7 @@ public class TestBasicService {
         }
         String template;
         try {
-            template = FileUtils.readFileToString(new File("./task_fh.xml"));
+            template = FileUtils.readFileToString(new File("./task_tianya.xml"));
         } catch (IOException e) {
             System.err.println(getMessages(e));
             return;
@@ -38,7 +38,7 @@ public class TestBasicService {
         Date lastTime = null;
         long tid;
         try {
-            tid = srv.createTask(template, false);
+            tid = srv.createTask(template, true);
         } catch (RemoteException e) {
             System.err.println(getMessages(e));
             return;

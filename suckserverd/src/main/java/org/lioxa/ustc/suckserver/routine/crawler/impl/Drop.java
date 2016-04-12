@@ -19,7 +19,7 @@ public class Drop extends CrawlerRoutine {
     int count = 1;
     
     @Param(name = "time")
-    long time = 1000;
+    long time = 1;
     
     @Override
     public void exec() throws ParameterException, ExecutionException {

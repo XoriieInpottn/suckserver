@@ -3,17 +3,17 @@
 	<load url = "http://www.tianya.cn/"> 
 		<type path="#text1" value="xiaohebian2016" />
 		<type path="#password1" value="123124125abc" />
-		<Click path="#button1"  />
+		<click path="#button1"  />
 	    <drop count="2" time="5" />
-	    <Click count="20" path=".sj-feed-load" time="5"/>
+	    <click count="20" path=".sj-feed-load" time="5"/>
 		<select path=".bd-text">
-			<LinkClick path=".at-link" closeBefore="false">
+			<click path=".at-link" closeBefore="false">
 					<print content="************" />
 					<match var="title" path=".s_title>span" />
 					<print content="title: $title" />
 					<match var="time" path=".atl-menu > div:nth-child(2) > span:nth-child(2)" />
 					<print content="time: $time" />
-			</LinkClick>
+			</click>
 		</select>
 	</load>
 </task>
