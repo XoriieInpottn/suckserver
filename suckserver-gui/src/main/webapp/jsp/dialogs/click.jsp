@@ -13,4 +13,8 @@
 		<label style="display:block;margin-bottom:5px">time</label>
 		<input type="text" id="click-time" name="time" style="display:block;width:100%" /> 
 	</fieldset>
+	<fieldset>
+		<label  style="display:block;margin-bottom:5px">closeBefore</label>
+		<input type="text" id="linkClick-closeBefore"  name="closeBefore" style="display:block;width:100%"/> 
+	</fieldset>
 </div>

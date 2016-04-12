@@ -48,7 +48,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-task");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -87,7 +87,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-subtask");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -131,7 +131,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-table");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -185,7 +185,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-column");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -231,7 +231,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-load");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -309,7 +309,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-match");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -353,7 +353,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-save");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -397,7 +397,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-var");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -443,7 +443,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-print");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -478,7 +478,7 @@ $(document).ready(function() {
 		},
 		close : function() {
 			isEdit = false;
-			emptyForm();
+			emptyForm("dialog-scan");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -486,45 +486,45 @@ $(document).ready(function() {
 			$(this).parent().find("button:eq(1)").click();
 		}
 	});
-	$("#dialog-linkClick").dialog({
-		autoOpen : false,
-		height : 325,
-		width : 350,
-		modal : true,
-		show : {
-			effect : "blind",
-			duration : 200
-		},
-		buttons : {
-			"OK" : function() {
-				if(checkIsNull("linkClick-path")) {
-					alert("Path of linkClick cannot be null.");
-					return;
-				}
-				form = getForm("dialog-linkClick", "linkClick");
-				var content = getContext(form);
-				var node = master.treeviewnode("getSelectedNode");
-				if (isEdit) {
-					treeview.treeview("editTreeNode", node, form);
-				} else {
-					treeview.treeview("addNode", content, form, node);
-				}
-				$("#dialog-linkClick").dialog("close");
-			},
-			"Cancel" : function() {
-				$("#dialog-linkClick").dialog("close");
-			}
-		},
-		close : function() {
-			isEdit = false;
-			emptyForm("dialog-linkClick");
-		}
-	}).keydown(function(e) {
-		if (e.which == 13) {
-			e.preventDefault();
-			$(this).parent().find("button:eq(1)").click();
-		}
-	});
+//	$("#dialog-linkClick").dialog({
+//		autoOpen : false,
+//		height : 325,
+//		width : 350,
+//		modal : true,
+//		show : {
+//			effect : "blind",
+//			duration : 200
+//		},
+//		buttons : {
+//			"OK" : function() {
+//				if(checkIsNull("linkClick-path")) {
+//					alert("Path of linkClick cannot be null.");
+//					return;
+//				}
+//				form = getForm("dialog-linkClick", "linkClick");
+//				var content = getContext(form);
+//				var node = master.treeviewnode("getSelectedNode");
+//				if (isEdit) {
+//					treeview.treeview("editTreeNode", node, form);
+//				} else {
+//					treeview.treeview("addNode", content, form, node);
+//				}
+//				$("#dialog-linkClick").dialog("close");
+//			},
+//			"Cancel" : function() {
+//				$("#dialog-linkClick").dialog("close");
+//			}
+//		},
+//		close : function() {
+//			isEdit = false;
+//			emptyForm("dialog-linkClick");
+//		}
+//	}).keydown(function(e) {
+//		if (e.which == 13) {
+//			e.preventDefault();
+//			$(this).parent().find("button:eq(1)").click();
+//		}
+//	});
 	$("#dialog-click").dialog({
 		autoOpen : false,
 		height : 400,
@@ -738,12 +738,12 @@ $(document).ready(function() {
 			$("#dialog-scan").dialog("open");
 		}
 	});
-	$("#btn-linkClick").button().click(function() {
-		var node = master.treeviewnode("getSelectedNode");
-		if (node) {
-			$("#dialog-linkClick").dialog("open");
-		}
-	});
+//	$("#btn-linkClick").button().click(function() {
+//		var node = master.treeviewnode("getSelectedNode");
+//		if (node) {
+//			$("#dialog-linkClick").dialog("open");
+//		}
+//	});
 	$("#btn-click").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
