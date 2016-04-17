@@ -54,8 +54,7 @@ public class Task extends CrawlerRoutine {
     	try {
 	    	if(this.disallow != null) {
 	    		String s[] = disallow.split(",");
-	    		browserDriver.setAccept(s);
-	    		browserDriver.autoSetUserAgent("./userAgent");
+	    		browserDriver.setAcceptFilters(s);
 	    	} 
     	} catch (Exception e) {
     		Loggers.getDefault().writeError(tid, "Set extention to the Firefox wrongly.");

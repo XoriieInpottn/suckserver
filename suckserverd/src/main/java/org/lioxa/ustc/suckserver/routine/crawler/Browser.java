@@ -58,9 +58,9 @@ public class Browser {
 	 * set Filters which you do not want to show in browser such as css,jpg...
 	 * @param suffix
 	 */
-	public void setFilters(String[] suffix) {
+	public void setSuffixFilters(String[] suffix) {
 		String script = null;
-		script = "window.invoke(\"setFliters\", {fliters:[";
+		script = "window.invoke(\"setSuffixFilters\", {fliters:[";
 		for(String i : suffix) {
 			script += "\""+ i + "\",";
 		}
@@ -96,14 +96,31 @@ public class Browser {
 		((JavascriptExecutor) this.firefoxDriver).executeScript(script);
 	}
 	
-	public void setAccept(String[] accepts) {
+	public void setAcceptFilters(String[] accepts) {
 		String script = null;
-		script = "window.invoke(\"setAccept\", {accepts:[";
+		script = "window.invoke(\"setAcceptFilters\", {accepts:[";
 		for(String i : accepts) {
 			script += "\""+ i + "\",";
 		}
 		script = script.substring(0, script.length()-1);
 		script += "]})";
+		((JavascriptExecutor) this.firefoxDriver).executeScript(script);
+	}
+	
+	public void setHostFilters(String[] host) {
+		String script = null;
+		script = "window.invoke(\"setHostFilters\", {hosts:[";
+		for(String i : host) {
+			script += "\""+ i + "\",";
+		}
+		script = script.substring(0, script.length()-1);
+		script += "]})";
+		((JavascriptExecutor) this.firefoxDriver).executeScript(script);
+	}
+	
+	public void deleteCookies() {
+		String script = null;
+		script = "window.invoke(\"deleteCookies\");";
 		((JavascriptExecutor) this.firefoxDriver).executeScript(script);
 	}
 	
