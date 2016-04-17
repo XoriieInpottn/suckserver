@@ -60,7 +60,10 @@ function _createTree(elem) {
 		if (!attr.specified) {
 			continue;
 		}
-		params[attr.name] = attr.value;
+		var value = attr.value;
+		value = escape(value);
+		params[attr.name] = value;
+//		params[attr.name] = attr.value;
 	}
 	/*
 	 * create child nodes
@@ -196,3 +199,21 @@ function treeToXML(root, level, str) {
 	}
 	return str;
 }
+
+/*
+ *to escape the special character of xml. eg. '&'->'&amp;'  '<'->'&lt;' '>'->'&gt;' '"'->"&quot;" "'"->"&apos;" 
+ */
+function escape(str) {
+	var reg0 = new RegExp("&","g");
+	var reg1 = new RegExp("<","g");
+	var reg2 = new RegExp(">","g");
+	var reg3 = new RegExp("\"","g");
+	var reg4 = new RegExp("'","g");
+	str = str.replace(reg0,"&amp;");
+    str = str.replace(reg1,"&lt;");
+	str = str.replace(reg2,"&gt");
+	str = str.replace(reg3,"&quot;");
+	str = str.replace(reg4,"&apos;");
+	return str;
+}
+

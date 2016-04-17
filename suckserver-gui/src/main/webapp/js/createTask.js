@@ -807,6 +807,7 @@ function getForm(dialogName, name) {
 		if (m.attr("type") == "text") {
 			var key = m.attr("name");
 			var value = m.val();
+			value = escape(value);
 			if (value != "") {
 				params[key] = value;
 			}
@@ -873,5 +874,22 @@ function centerBG() {
 	var h1 = parseInt($("#main-right").css("height"));
 	var h2 = parseInt($("#button-group").css("height"));
 	var h3 = (h1 - h2) / 2.0 + "px";
-	$("#button-group").css("margin-top", h3);
+	if(h1 > h2) {
+		$("#button-group").css("margin-top", h3);
+	}
+}
+//
+//to escape the special character of xml. eg. '&'->'&amp;'  '<'->'&lt;' '>'->'&gt;' '"'->"&quot;" "'"->"&apos;"
+function escape(str) {
+	var reg0 = new RegExp("&","g");
+	var reg1 = new RegExp("<","g");
+	var reg2 = new RegExp(">","g");
+	var reg3 = new RegExp("\"","g");
+	var reg4 = new RegExp("'","g");
+	str = str.replace(reg0,"&amp;");
+    str = str.replace(reg1,"&lt;");
+	str = str.replace(reg2,"&gt");
+	str = str.replace(reg3,"&quot;");
+	str = str.replace(reg4,"&apos;");
+	return str;
 }
