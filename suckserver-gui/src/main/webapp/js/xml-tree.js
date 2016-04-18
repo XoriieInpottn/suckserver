@@ -205,15 +205,15 @@ function treeToXML(root, level, str) {
  */
 function escape(str) {
 	var reg0 = new RegExp("&","g");
-	var reg1 = new RegExp("<","g");
-	var reg2 = new RegExp(">","g");
-	var reg3 = new RegExp("\"","g");
-	var reg4 = new RegExp("'","g");
+//	var reg1 = new RegExp("<","g");
+//	var reg2 = new RegExp(">","g");
+//	var reg3 = new RegExp("\"","g");
+//	var reg4 = new RegExp("'","g");
 	str = str.replace(reg0,"&amp;");
-    str = str.replace(reg1,"&lt;");
-	str = str.replace(reg2,"&gt");
-	str = str.replace(reg3,"&quot;");
-	str = str.replace(reg4,"&apos;");
+//    str = str.replace(reg1,"&lt;");
+//	str = str.replace(reg2,"&gt;");
+//	str = str.replace(reg3,"&quot;");
+//	str = str.replace(reg4,"&apos;");
 	return str;
 }
 
