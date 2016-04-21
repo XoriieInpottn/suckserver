@@ -45,6 +45,9 @@ public class Select extends CrawlerRoutine {
         List<WebElement> elems = dom.findElements(By.cssSelector(path));
         Iterator<WebElement> iter = elems.iterator();
         while (iter.hasNext()) {
+        	if (this.globalContext.isStopReq()) {
+        		return;
+	   		}
             WebElement elem = iter.next();
             this.localContext.put("dom", elem);
             this.executeSubRoutines();

@@ -80,6 +80,9 @@ public class Click extends CrawlerRoutine {
         }
         
         for(int i = 1; i < this.count; i++) {
+        	 if (this.globalContext.isStopReq()) {
+                 return;
+             }
         	if(!this.globalContext.getBrowserDriver().click(element, time)) {
         		Loggers.getDefault().writeLog(tid, "The command of click cannot make effect!");
         		return;

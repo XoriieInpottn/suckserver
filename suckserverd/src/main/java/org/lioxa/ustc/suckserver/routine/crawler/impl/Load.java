@@ -39,6 +39,9 @@ public class Load extends CrawlerRoutine {
 		  }
 		  this.goPage();
 		  for(int i = 1; i < this.maxPage; i++) {
+			  if (this.globalContext.isStopReq()) {
+				  return;
+			  }
 			  long tid = this.globalContext.getRunnableTask().getId();
 			  if(nextPath == null) {
 				  Loggers.getDefault().writeError(tid, "nextPath of Load cannot be null!");
