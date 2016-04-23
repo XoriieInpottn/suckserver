@@ -116,7 +116,7 @@ public class Match extends CrawlerRoutine {
         	WebElement elems = null;
 			try {
 				elems = this.globalContext.getBrowserDriver().findElement(dom, this.path, 5);
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 			}
 			if(elems == null) {
