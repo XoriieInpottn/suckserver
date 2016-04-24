@@ -335,11 +335,14 @@ public class Browser {
 			if(e.getMessage().contains("Element is not clickable at point")) {
 				int i;
 				for(i = 0; i < time; i++) {
+					String js = "var scrollTop=document.documentElement.scrollTop;console.log(scrollTop);var q=document.documentElement.scrollTop=scrollTop+"+300 * (i + 1);
+					String js1 = "var scrollTop=document.documentElement.scrollTop;console.log(scrollTop);var q=document.documentElement.scrollTop=scrollTop-"+300 * (i + 1);
 					try{
 						if(i%2 == 0) { 
-							this.scrollDown(0);
+//							this.scrollDown(0);
+							((JavascriptExecutor) this.firefoxDriver).executeScript(js1, 0);
 						} else {
-							this.scrollTop(0);
+							((JavascriptExecutor) this.firefoxDriver).executeScript(js, 0);
 						}
 						Thread.sleep(time*500);
 						elem.click();
@@ -374,5 +377,5 @@ public class Browser {
 		this.setUserAgent(userAgentList.get(i));
 		reader.close();
 	}
-
+	
 }

@@ -52,7 +52,7 @@ public class Click extends CrawlerRoutine {
         	}
     	}
         //element.click();
-    	if(!this.globalContext.getBrowserDriver().click(element, 2)) {
+    	if(!this.globalContext.getBrowserDriver().click(element, 8)) {
     		Loggers.getDefault().writeLog(tid, "Click cannot click the element");
     		return;
     	}
