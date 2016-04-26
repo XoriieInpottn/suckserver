@@ -486,45 +486,6 @@ $(document).ready(function() {
 			$(this).parent().find("button:eq(1)").click();
 		}
 	});
-//	$("#dialog-linkClick").dialog({
-//		autoOpen : false,
-//		height : 325,
-//		width : 350,
-//		modal : true,
-//		show : {
-//			effect : "blind",
-//			duration : 200
-//		},
-//		buttons : {
-//			"OK" : function() {
-//				if(checkIsNull("linkClick-path")) {
-//					alert("Path of linkClick cannot be null.");
-//					return;
-//				}
-//				form = getForm("dialog-linkClick", "linkClick");
-//				var content = getContext(form);
-//				var node = master.treeviewnode("getSelectedNode");
-//				if (isEdit) {
-//					treeview.treeview("editTreeNode", node, form);
-//				} else {
-//					treeview.treeview("addNode", content, form, node);
-//				}
-//				$("#dialog-linkClick").dialog("close");
-//			},
-//			"Cancel" : function() {
-//				$("#dialog-linkClick").dialog("close");
-//			}
-//		},
-//		close : function() {
-//			isEdit = false;
-//			emptyForm("dialog-linkClick");
-//		}
-//	}).keydown(function(e) {
-//		if (e.which == 13) {
-//			e.preventDefault();
-//			$(this).parent().find("button:eq(1)").click();
-//		}
-//	});
 	$("#dialog-click").dialog({
 		autoOpen : false,
 		height : 400,
@@ -738,12 +699,6 @@ $(document).ready(function() {
 			$("#dialog-scan").dialog("open");
 		}
 	});
-//	$("#btn-linkClick").button().click(function() {
-//		var node = master.treeviewnode("getSelectedNode");
-//		if (node) {
-//			$("#dialog-linkClick").dialog("open");
-//		}
-//	});
 	$("#btn-click").button().click(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
@@ -794,7 +749,12 @@ $(document).ready(function() {
 			$("#xml_text").val(str);
 		}
 	});
-	centerBG();
+	window.onload = function() {
+		centerBG();
+	}
+	window.onresize = function () {
+		centerBG();
+	}
 });
 //
 // get a form
@@ -872,24 +832,15 @@ function tab(obj) {
 // make button-group be center of main-right
 function centerBG() {
 	var h1 = parseInt($("#main-right").css("height"));
-	var h2 = parseInt($("#button-group").css("height"));
-	var h3 = (h1 - h2) / 2.0 + "px";
-	if(h1 > h2) {
-		$("#button-group").css("margin-top", h3);
-	}
+	var h2 = h1 * 0.8 + "px";
+	var h3 = h1 * 0.1 + "px";
+	$("#button-group").css("height",h2);
+	$("#button-group").css("margin-top",h3);
 }
 //
 //to escape the special character of xml. eg. '&'->'&amp;'  '<'->'&lt;' '>'->'&gt;' '"'->"&quot;" "'"->"&apos;"
 function escape(str) {
 	var reg0 = new RegExp("&","g");
-//	var reg1 = new RegExp("<","g");
-//	var reg2 = new RegExp(">","g");
-//	var reg3 = new RegExp("\"","g");
-//	var reg4 = new RegExp("'","g");
 	str = str.replace(reg0,"&amp;");
-//    str = str.replace(reg1,"&lt;");
-//	str = str.replace(reg2,"&gt;");
-//	str = str.replace(reg3,"&quot;");
-//	str = str.replace(reg4,"&apos;");
 	return str;
 }
