@@ -86,6 +86,7 @@
 			<%@ include file="dialogs/click.jsp"%>
 			<%@ include file="dialogs/type.jsp"%>
 			<%@ include file="dialogs/drop.jsp"%>
+			<%@ include file="dialogs/ic.jsp"%>
 		</div>
 	</div>
 </body>

@@ -575,10 +575,6 @@ $(document).ready(function() {
 					alert("the path of type cannot be null.");
 					return;
 				}
-				if(checkIsNull("type-value")) {
-					alert("the value of type cannot be null.");
-					return;
-				}
 				form = getForm("dialog-type", "type");
 				var content = getContext(form);
 				var node = master.treeviewnode("getSelectedNode");
@@ -596,6 +592,37 @@ $(document).ready(function() {
 		close : function() {
 			isEdit = false;
 			emptyForm("dialog-type");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
+	$("#dialog-ic").dialog({
+		autoOpen : false,
+		height : 200,
+		width : 250,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("ic-text")) {
+					alert("the content cannot be null.");
+					return;
+				}
+				sendIC($("#ic-text").val());
+				$("#dialog-ic").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-type").dialog("close");
+			}
+		},
+		close : function() {
+			emptyForm("dialog-ic");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {

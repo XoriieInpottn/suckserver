@@ -3,15 +3,19 @@ package org.lioxa.ustc.suckserver.routine.crawler;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.codec.binary.Base64OutputStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,6 +23,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -141,6 +146,19 @@ public class Browser {
 	 */
 	public void get(String url) {
 		this.firefoxDriver.navigate().to(url);
+	}
+
+	/**
+	 * connect to a page with a limited time.
+	 * 
+	 * @param url
+	 * @param time
+	 * @throws TimeoutException
+	 */
+	public void get(String url, long time) throws TimeoutException {
+		this.firefoxDriver.manage().timeouts()
+				.pageLoadTimeout(time, TimeUnit.SECONDS);
+		this.firefoxDriver.get(url);
 	}
 
 	/**
@@ -429,5 +447,22 @@ public class Browser {
 				location.getY(), size.getWidth(), size.getHeight());
 		File file = new File(filePath);
 		ImageIO.write(croppedImage, "png", file);
+	}
+	
+	public String createElementImage(WebElement webElement) throws IOException {
+		String result;
+		Point location = webElement.getLocation();
+		Dimension size = webElement.getSize();
+		BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(
+				takeScreenshot()));
+		BufferedImage croppedImage = originalImage.getSubimage(location.getX(),
+				location.getY(), size.getWidth(), size.getHeight());
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		OutputStream b64 = new Base64OutputStream(os);
+		ImageIO.write(croppedImage, "png", b64);
+		result = os.toString("UTF-8");
+		b64.close();
+		os.close();
+		return result;
 	}
 }

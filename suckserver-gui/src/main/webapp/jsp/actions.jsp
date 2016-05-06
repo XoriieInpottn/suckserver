@@ -6,4 +6,5 @@
 	var URL_GET_TASKS = "<s:url value="/get-tasks" />";
 	var URL_STOP_TASK = "<s:url value="/stop-task" />";
 	var URL_REMOVE_TASK = "<s:url value="/remove-task" />";
+	var URL_SEND_IC = "<s:url value="/send-IC" />";
 </script>

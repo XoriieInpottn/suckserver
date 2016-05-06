@@ -3,22 +3,22 @@ var list = new Array();
 var i = 0;
 $(document).ready(function() {
 	$("#btn-test").click(function() {
-		if(isTree) {
+		if (isTree) {
 			var size = master.treeviewnode("getChildren").length;
 			if (size == undefined || size <= 0) {
 				alert("模板为空！无法执行");
 				return;
-			 }
+			}
 		}
 		createTask(true);
 	});
 	$("#btn-submit").click(function() {
-		if(isTree) {
+		if (isTree) {
 			var size = master.treeviewnode("getChildren").length;
 			if (size == undefined || size <= 0) {
 				alert("模板为空！无法执行");
 				return;
-			 }
+			}
 		}
 		createTask(false);
 	});
@@ -26,6 +26,13 @@ $(document).ready(function() {
 		stopTask();
 	});
 	clearLog();
+	$("#icOK").click(function() {
+		alert("helli");
+		if ($("#ic-text").val() != "") {
+			alert($("ic-text").val());
+			sendIC($("ic-text").val());
+		}
+	});
 });
 
 function appendError(error) {
@@ -46,12 +53,12 @@ function clearLog() {
 
 function createTask(test) {
 	var template;
-	 if (isTree) {
+	if (isTree) {
 		var root = master;
 		template = treeToXML(root, 0, template);
-	 } else {
-		 template = $("#xml_text").val();
-	 }
+	} else {
+		template = $("#xml_text").val();
+	}
 	$.ajax({
 		type : "POST",
 		url : URL_CREATE_TASK,
@@ -93,6 +100,7 @@ function showLogs() {
 	if (after != undefined) {
 		data.after = after;
 	}
+
 	$.ajax({
 		type : "POST",
 		url : URL_GET_LOGS,
@@ -100,6 +108,14 @@ function showLogs() {
 		success : function(result) {
 			switch (result.status) {
 			case "success":
+				if (result.image != undefined) {
+					if (result.image.length > 0) {
+						console.log("image = " + result.image);
+						$("#ic-image").attr("src",
+								"data:image/png;base64," + result.image);
+						$("#dialog-ic").dialog("open");
+					}
+				}
 				for ( var i in result.data) {
 					var log = result.data[i];
 					after = log.time;
@@ -157,7 +173,7 @@ function showLogs() {
 }
 
 function stopTask() {
-	if(tid == undefined)
+	if (tid == undefined)
 		return;
 	$.ajax({
 		type : "POST",
@@ -173,6 +189,27 @@ function stopTask() {
 		}
 	});
 }
+
+function sendIC(icValue) {
+	if (tid == undefined) {
+		return;
+	}
+	$.ajax({
+		type : "post",
+		url : URL_SEND_IC,
+		data : {
+			tid : tid,
+			icValue : icValue
+		},
+		success : function(result) {
+			switch (result.status) {
+			case "success":
+				break;
+			}
+		}
+	});
+}
+
 function appendLog(log, options) {
 	if (options != undefined) {
 		var time = options.time;
@@ -180,8 +217,8 @@ function appendLog(log, options) {
 		var id = options.id;
 	}
 	var html = "<p>";
-	if(id != undefined) {
-		html = "<p id = "+id+">";
+	if (id != undefined) {
+		html = "<p id = " + id + ">";
 	}
 	if (time != undefined) {
 		html += "<span  style=\"color:#777\">" + time + "</span>";
@@ -193,18 +230,17 @@ function appendLog(log, options) {
 		html += "<span  style=\"color:" + color + "\">" + log + "</span>";
 	}
 	html += "</p>";
-	if(id != undefined) {
+	if (id != undefined) {
 		for (x in list) {
-			if(id == list[x]){
+			if (id == list[x]) {
 				return;
 			}
 		}
 		list[i] = id;
-		i = (i + 1)%100;
+		i = (i + 1) % 100;
 	}
 	$("#main-bottom>div").append(html);
 	if ($("#main-bottom>div").children().length > 1000) {
 		$("#main-bottom>div span:first").remove();
 	}
 }
-

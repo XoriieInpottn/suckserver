@@ -68,7 +68,9 @@ public class RunnableTask implements Runnable {
             throw e;
         }
     }
-
+     public CrawlerContext getContext() {
+    	 return this.context;
+     }
     //
     //
     //

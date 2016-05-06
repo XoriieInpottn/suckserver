@@ -37,5 +37,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="send-IC" class="org.lioxa.ustc.suckserver.action.SendIdentifyCodeAction">
+			<result name="done" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>
