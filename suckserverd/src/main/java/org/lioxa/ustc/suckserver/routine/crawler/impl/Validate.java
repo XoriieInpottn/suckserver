@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * this command should be used to open a new Link
+ * the command can solve the validation.
  * 
  * @author kevin
  *
@@ -24,9 +24,9 @@ public class Validate extends CrawlerRoutine {
 	@Param(name = "delay")
 	long delay = 0;
 
-	@Param(name = "value")
-	String value;
-	
+	@Param(name = "valuePath", essential = true)
+	String valuePath;
+
 	@Override
 	public void exec() throws ExecutionException, ParameterException {
 		if (this.globalContext.isStopReq()) {
@@ -67,8 +67,15 @@ public class Validate extends CrawlerRoutine {
 					e.printStackTrace();
 				}
 			}
-			value = this.globalContext.getIcvalue();
+			String value = this.globalContext.getIcvalue();
 			this.globalContext.setIcvalue("");
+			this.globalContext.getBrowserDriver()
+					.findElement(By.cssSelector(valuePath)).sendKeys(value);
+			try {
+				Thread.sleep(delay * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

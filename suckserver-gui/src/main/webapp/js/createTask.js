@@ -562,7 +562,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-type").dialog({
 		autoOpen : false,
-		height : 325,
+		height : 400,
 		width : 350,
 		modal : true,
 		show : {
@@ -592,6 +592,45 @@ $(document).ready(function() {
 		close : function() {
 			isEdit = false;
 			emptyForm("dialog-type");
+		}
+	}).keydown(function(e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			$(this).parent().find("button:eq(1)").click();
+		}
+	});
+	$("#dialog-validate").dialog({
+		autoOpen : false,
+		height : 400,
+		width : 350,
+		modal : true,
+		show : {
+			effect : "blind",
+			duration : 200
+		},
+		buttons : {
+			"OK" : function() {
+				if(checkIsNull("validate-valuePath")) {
+					alert("the valuePath of validate cannot be null.");
+					return;
+				}
+				form = getForm("dialog-validate", "validate");
+				var content = getContext(form);
+				var node = master.treeviewnode("getSelectedNode");
+				if (isEdit) {
+					treeview.treeview("editTreeNode", node, form);
+				} else {
+					treeview.treeview("addNode", content, form, node);
+				}
+				$("#dialog-validate").dialog("close");
+			},
+			"Cancel" : function() {
+				$("#dialog-validate").dialog("close");
+			}
+		},
+		close : function() {
+			isEdit = false;
+			emptyForm("dialog-validate");
 		}
 	}).keydown(function(e) {
 		if (e.which == 13) {
@@ -736,6 +775,12 @@ $(document).ready(function() {
 		var node = master.treeviewnode("getSelectedNode");
 		if (node) {
 			$("#dialog-type").dialog("open");
+		}
+	});
+	$("#btn-validate").button().click(function() {
+		var node = master.treeviewnode("getSelectedNode");
+		if (node) {
+			$("#dialog-validate").dialog("open");
 		}
 	});
 	$("#btn-drop").button().click(function() {

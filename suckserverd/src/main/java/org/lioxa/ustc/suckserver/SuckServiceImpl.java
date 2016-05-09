@@ -99,7 +99,11 @@ public class SuckServiceImpl extends UnicastRemoteObject implements SuckService 
 			runnableTask.getContext().setIcBase64("");
 		}
 		TaskStat taskStat = runnableTask.getTaskStat();
-		return new Object[] { task, taskStat, image };
+		if(image.length() > 0) {
+			return new Object[] { task, taskStat, image };
+		} else {
+			return new Object[] { task, taskStat };
+		}
 	}
 
 	@Override

@@ -9,4 +9,8 @@
 		<label  style="display:block;margin-bottom:5px">value</label>
 		<input type="text" id="type-value" placeholder="this part cannot be null." name="value" style="display:block;width:100%"/> 
 	</fieldset>
+	<fieldset>
+		<label  style="display:block;margin-bottom:5px">delay</label>
+		<input type="text" id="type-delay" name="delay" style="display:block;width:100%"/> 
+	</fieldset>
 </div>

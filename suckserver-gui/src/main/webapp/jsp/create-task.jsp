@@ -65,6 +65,7 @@
 						<button id="btn-subtask" class="margin-s">Subtask</button>
 						<button id="btn-click" class="margin-s">Click</button>
 						<button id="btn-type" class="margin-s">Type</button>
+						<button id="btn-validate" class="margin-s">Validate</button>
 						<button id="btn-drop" class="margin-s">Drop</button>
 					</div>
 				</div>
@@ -87,6 +88,7 @@
 			<%@ include file="dialogs/type.jsp"%>
 			<%@ include file="dialogs/drop.jsp"%>
 			<%@ include file="dialogs/ic.jsp"%>
+			<%@ include file="dialogs/validate.jsp"%>
 		</div>
 	</div>
 </body>
