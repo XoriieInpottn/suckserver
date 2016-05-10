@@ -28,8 +28,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Browser {
 	private WebDriver firefoxDriver;
@@ -232,42 +230,6 @@ public class Browser {
 		}
 	}
 
-	public List<WebElement> findElements(By by) {
-		return this.firefoxDriver.findElements(by);
-	}
-
-	public WebElement findElement(final By by) {
-		try {
-			WebElement e = (new WebDriverWait(this.firefoxDriver, 10))
-					.until(new ExpectedCondition<WebElement>() {
-						@Override
-						public WebElement apply(WebDriver d) {
-							return d.findElement(by);
-						}
-					});
-			return e;
-		} catch (Exception ee) {
-			return null;
-		}
-	}
-
-	public List<WebElement> selectElements(String cssPath) {
-		return this.firefoxDriver.findElements(By.cssSelector(cssPath));
-	}
-
-	public WebElement selectElement(String cssPath) {
-		return this.findElement(By.cssSelector(cssPath));
-	}
-
-	public boolean isWebElementExits(By selector) {
-		try {
-			this.firefoxDriver.findElement(selector);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
 	/**
 	 * @param by
 	 * @return a text of a special webElement.
@@ -292,7 +254,6 @@ public class Browser {
 		try {
 			Thread.sleep(time * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -325,34 +286,6 @@ public class Browser {
 	 */
 	public void quit() {
 		this.firefoxDriver.quit();
-	}
-
-	/**
-	 * this is to find a element of a elem
-	 * 
-	 * @param elem
-	 * @param cssPath
-	 * @param time
-	 * @return
-	 * @throws InterruptedException
-	 */
-	public WebElement findElement(WebElement elem, String cssPath, int time)
-			throws InterruptedException {
-		WebElement element = null;
-		try {
-			element = elem.findElement(By.cssSelector(cssPath));
-		} catch (NoSuchElementException e) {
-			for (int i = 0; i < time; i++) {
-				try {
-					Thread.sleep(time * 500);
-					element = elem.findElement(By.cssSelector(cssPath));
-					break;
-				} catch (NoSuchElementException ee) {
-					continue;
-				}
-			}
-		}
-		return element;
 	}
 
 	/**
@@ -448,7 +381,7 @@ public class Browser {
 		File file = new File(filePath);
 		ImageIO.write(croppedImage, "png", file);
 	}
-	
+
 	public String createElementImage(WebElement webElement) throws IOException {
 		String result;
 		Point location = webElement.getLocation();
@@ -464,5 +397,51 @@ public class Browser {
 		b64.close();
 		os.close();
 		return result;
+	}
+
+	public List<WebElement> select(String path) {
+		try {
+			List<WebElement> list = this.firefoxDriver.findElements(By
+					.cssSelector(path));
+			return list;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<WebElement> select(String path, long delay, int retry) {
+		List<WebElement> list = null;
+		for (int i = 0; i < retry; i++) {
+			try {
+				list = this.firefoxDriver.findElements(By.cssSelector(path));
+				return list;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(delay * 1000);
+				} catch (InterruptedException e1) {
+					return null;
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<WebElement> select(WebElement elem, String path, int retry,
+			int delay) {
+		List<WebElement> list = null;
+		for (int i = 0; i < retry + 1; i++) {
+			try {
+				list = elem.findElements(By.cssSelector(path));
+				return list;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(delay*1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				continue;
+			}
+		}
+		return list;
 	}
 }

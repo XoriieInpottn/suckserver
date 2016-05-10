@@ -34,8 +34,7 @@ public class Type extends CrawlerRoutine {
 			if (element != null) {
 				element = element.findElement(By.cssSelector(path));
 			} else {
-				element = this.globalContext.getBrowserDriver().findElement(
-						By.cssSelector(path));
+				element = this.globalContext.getBrowserDriver().select(path).get(0);
 			}
 		}
 		element.sendKeys(value);

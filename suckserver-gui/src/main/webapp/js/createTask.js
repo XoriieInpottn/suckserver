@@ -488,7 +488,7 @@ $(document).ready(function() {
 	});
 	$("#dialog-click").dialog({
 		autoOpen : false,
-		height : 400,
+		height : 525,
 		width : 350,
 		modal : true,
 		show : {

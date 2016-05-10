@@ -112,12 +112,10 @@ public class Match extends CrawlerRoutine {
         String rawStr;
         long tid = this.globalContext.getRunnableTask().getId();
         if (this.path != null) {
-        	// WebElement elems = dom.findElement(By.cssSelector(this.path));
         	WebElement elems = null;
 			try {
-				elems = this.globalContext.getBrowserDriver().findElement(dom, this.path, 5);
+				elems = this.globalContext.getBrowserDriver().select(dom, this.path, 3, 2).get(0);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 			}
 			if(elems == null) {
 				Loggers.getDefault().writeLog(tid, "Match cannot find the element");

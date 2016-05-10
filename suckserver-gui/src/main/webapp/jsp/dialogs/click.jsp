@@ -10,11 +10,15 @@
 		<input type="text" id="click-count" placeholder="1" name="count" style="display:block;width:100%"/> 
 	</fieldset>
 	<fieldset>
-		<label style="display:block;margin-bottom:5px">time</label>
-		<input type="text" id="click-time" name="time" style="display:block;width:100%" /> 
+		<label style="display:block;margin-bottom:5px">retry</label>
+		<input type="text" id="click-retry" name="retry" style="display:block;width:100%" /> 
+	</fieldset>
+	<fieldset>
+		<label style="display:block;margin-bottom:5px">delay</label>
+		<input type="text" id="click-delay" name="delay" style="display:block;width:100%" /> 
 	</fieldset>
 	<fieldset>
 		<label  style="display:block;margin-bottom:5px">closeBefore</label>
-		<input type="text" id="linkClick-closeBefore"  name="closeBefore" style="display:block;width:100%"/> 
+		<input type="text" id="click-closeBefore"  name="closeBefore" style="display:block;width:100%"/> 
 	</fieldset>
 </div>

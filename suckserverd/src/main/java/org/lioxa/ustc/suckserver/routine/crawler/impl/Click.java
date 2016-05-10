@@ -5,7 +5,6 @@ import org.lioxa.ustc.suckserver.routine.ExecutionException;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -21,8 +20,11 @@ public class Click extends CrawlerRoutine {
     @Param(name = "count")
     int count = 1;
     
-    @Param(name = "time")
-    int time = 1;
+    @Param(name = "retry")
+    int retry = 1;
+    
+    @Param(name = "delay")
+    int delay = 1;
     
     @Param(name = "closeBefore")
     String closeBefore;
@@ -36,31 +38,23 @@ public class Click extends CrawlerRoutine {
         long tid = this.globalContext.getRunnableTask().getId();
         if(this.path.length() != 0) {
         	if(element != null) {
-        		try {
-					element = this.globalContext.getBrowserDriver().findElement(element, path, 5);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				element = this.globalContext.getBrowserDriver().select(element, path, retry, delay).get(0);
         		if(element == null) {
         			Loggers.getDefault().writeLog(tid, "The path of Click is invalid!");
         			return;
         		}
-//        		element = element.findElement(By.cssSelector(path));
         	} else {
-        		element = this.globalContext.getBrowserDriver().findElement(By.cssSelector(path));
+        		element = this.globalContext.getBrowserDriver().select(path).get(0);
         	}
     	}
-        //element.click();
     	if(!this.globalContext.getBrowserDriver().click(element, 8)) {
     		Loggers.getDefault().writeLog(tid, "Click cannot click the element");
     		return;
     	}
-    	if(time > 0) {
+    	if(delay > 0) {
 	    	try {
-				Thread.sleep(time*1000);
+				Thread.sleep(delay*1000);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
     	}
@@ -83,26 +77,24 @@ public class Click extends CrawlerRoutine {
         	 if (this.globalContext.isStopReq()) {
                  return;
              }
-        	if(!this.globalContext.getBrowserDriver().click(element, time)) {
+        	if(!this.globalContext.getBrowserDriver().click(element, 8)) {
         		Loggers.getDefault().writeLog(tid, "The command of click cannot make effect!");
         		return;
         	}
         	try {
-				Thread.sleep(time*1000);
+				Thread.sleep(delay*1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-        WebElement newElement = this.globalContext.getBrowserDriver().findElement(By.tagName("body"));
+        WebElement newElement = this.globalContext.getBrowserDriver().select("body").get(0);
         this.getMasterContext().put("dom", newElement);
     }
     
     public void goPage() throws ParameterException, ExecutionException {
-    	WebElement newElement = this.globalContext.getBrowserDriver().findElement(By.tagName("body"));
+    	WebElement newElement = this.globalContext.getBrowserDriver().select("body").get(0);
     	this.localContext.put("dom", newElement);
     	this.executeSubRoutines();
-    	//this.getMasterContext().put("dom", newElement);
     }
 
 }

@@ -6,7 +6,7 @@
 		<input type="text" id="drop-count" name="count" placeholder="1" style="display:block;width:100%" /> 
 	</fieldset>
 	<fieldset>
-		<label style="display:block;margin-bottom:5px">time</label>
-		<input type="text" id="drop-time" name="time" placeholder="1" style="display:block;width:100%" /> 
+		<label style="display:block;margin-bottom:5px">delay</label>
+		<input type="text" id="drop-delay" name="delay" placeholder="1" style="display:block;width:100%" /> 
 	</fieldset>
 </div>

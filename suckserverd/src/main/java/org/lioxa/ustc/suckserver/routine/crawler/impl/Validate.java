@@ -44,8 +44,7 @@ public class Validate extends CrawlerRoutine {
 			if (element != null) {
 				e1 = element.findElement(By.cssSelector(path));
 			} else {
-				e1 = this.globalContext.getBrowserDriver().findElement(
-						By.cssSelector(path));
+				e1 = this.globalContext.getBrowserDriver().select(path).get(0);
 			}
 			String base64 = "";
 			try {
@@ -69,8 +68,11 @@ public class Validate extends CrawlerRoutine {
 			}
 			String value = this.globalContext.getIcvalue();
 			this.globalContext.setIcvalue("");
-			this.globalContext.getBrowserDriver()
-					.findElement(By.cssSelector(valuePath)).sendKeys(value);
+			if(element == null) {
+				this.globalContext.getBrowserDriver().select(valuePath).get(0).sendKeys(value);
+			} else {
+				this.globalContext.getBrowserDriver().select(element, valuePath, 0, 0).get(0).sendKeys(value);;
+			}
 			try {
 				Thread.sleep(delay * 1000);
 			} catch (InterruptedException e) {
