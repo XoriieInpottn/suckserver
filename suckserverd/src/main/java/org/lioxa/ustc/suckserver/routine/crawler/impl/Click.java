@@ -21,10 +21,10 @@ public class Click extends CrawlerRoutine {
     int count = 1;
     
     @Param(name = "retry")
-    int retry = 1;
+    int retry = 2;
     
     @Param(name = "delay")
-    int delay = 1;
+    int delay = 2;
     
     @Param(name = "closeBefore")
     String closeBefore;
@@ -44,7 +44,7 @@ public class Click extends CrawlerRoutine {
         			return;
         		}
         	} else {
-        		element = this.globalContext.getBrowserDriver().select(path).get(0);
+        		element = this.globalContext.getBrowserDriver().select(path, retry, delay).get(0);
         	}
     	}
     	if(!this.globalContext.getBrowserDriver().click(element, 8)) {
@@ -87,12 +87,12 @@ public class Click extends CrawlerRoutine {
 				e.printStackTrace();
 			}
         }
-        WebElement newElement = this.globalContext.getBrowserDriver().select("body").get(0);
+        WebElement newElement = this.globalContext.getBrowserDriver().select("body", retry, delay).get(0);
         this.getMasterContext().put("dom", newElement);
     }
     
     public void goPage() throws ParameterException, ExecutionException {
-    	WebElement newElement = this.globalContext.getBrowserDriver().select("body").get(0);
+    	WebElement newElement = this.globalContext.getBrowserDriver().select("body", retry, delay).get(0);
     	this.localContext.put("dom", newElement);
     	this.executeSubRoutines();
     }

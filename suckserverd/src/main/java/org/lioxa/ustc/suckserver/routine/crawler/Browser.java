@@ -411,35 +411,32 @@ public class Browser {
 
 	public List<WebElement> select(String path, long delay, int retry) {
 		List<WebElement> list = null;
-		for (int i = 0; i < retry; i++) {
-			try {
-				list = this.firefoxDriver.findElements(By.cssSelector(path));
+		for (int i = 0; i < retry + 1; i++) {
+			list = this.firefoxDriver.findElements(By.cssSelector(path));
+			if (list.size() > 0) {
 				return list;
-			} catch (Exception e) {
-				try {
-					Thread.sleep(delay * 1000);
-				} catch (InterruptedException e1) {
-					return null;
-				}
+			}
+			try {
+				Thread.sleep(delay * 1000);
+			} catch (InterruptedException e) {
 			}
 		}
 		return list;
 	}
-	
-	public List<WebElement> select(WebElement elem, String path, int retry,
-			int delay) {
+
+
+	public List<WebElement> select(WebElement elem, String path,
+			int retry, int delay) {
 		List<WebElement> list = null;
 		for (int i = 0; i < retry + 1; i++) {
-			try {
-				list = elem.findElements(By.cssSelector(path));
+			list = elem.findElements(By.cssSelector(path));
+			if (list.size() > 0) {
 				return list;
-			} catch (Exception e) {
-				try {
-					Thread.sleep(delay*1000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-				continue;
+			}
+			try {
+				Thread.sleep(delay * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 		return list;

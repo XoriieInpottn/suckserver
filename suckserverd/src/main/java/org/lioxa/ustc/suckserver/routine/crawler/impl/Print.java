@@ -34,9 +34,6 @@ public class Print extends CrawlerRoutine {
         if (dom == null) {
             return;
         }
-//        System.out.println("*************************************");
-//        System.out.println(dom.getText());
-//        System.out.println("*************************************");
         Loggers.getDefault().writeLog(tid, dom.getText());
     }
 
