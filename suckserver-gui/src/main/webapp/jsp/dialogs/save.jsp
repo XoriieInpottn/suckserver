@@ -5,4 +5,8 @@
 		<label for="save-name"  style="display:block;margin-bottom:5px">Name</label>
 		<input type="text" id="save-name" name="table" style="display:block;width:100%" placeholder="This part cannot be none">
 	</fieldset>
+	<fieldset>
+		<label for="save-field"  style="display:block;margin-bottom:5px">Field</label>
+		<input type="text" id="save-field" name="field" style="display:block;width:100%">
+	</fieldset>
 </div>

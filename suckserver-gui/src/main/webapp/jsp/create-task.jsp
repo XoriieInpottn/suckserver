@@ -67,6 +67,7 @@
 						<button id="btn-type" class="margin-s">Type</button>
 						<button id="btn-validate" class="margin-s">Validate</button>
 						<button id="btn-drop" class="margin-s">Drop</button>
+						<button id="btn-while" class="margin-s">While</button>
 					</div>
 				</div>
 				<div id="main-bottom">
@@ -89,6 +90,7 @@
 			<%@ include file="dialogs/drop.jsp"%>
 			<%@ include file="dialogs/ic.jsp"%>
 			<%@ include file="dialogs/validate.jsp"%>
+			<%@ include file="dialogs/while.jsp"%>
 		</div>
 	</div>
 </body>

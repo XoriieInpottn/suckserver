@@ -1,6 +1,7 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -21,119 +22,152 @@ import org.lioxa.ustc.suckserver.utils.Utils;
  */
 public class Save extends CrawlerRoutine {
 
-    @Param(name = "table", essential = true)
-    String table;
-    
-    //
-    //add the timeStamp to the table
-    long currentTime = 0L;
-    int currentTimeCount = 0;
+	@Param(name = "table", essential = true)
+	String table;
 
-    //
-    // execution
+	@Param(name = "field")
+	String field = "";
 
-    @Override
-    public void exec() throws ExecutionException {
-        if (this.globalContext.isStopReq()) {
-            return;
-        }
-        //
-        // get table info
-        TableInfo tblInfo = this.globalContext.getTables().get(this.table);
-        if (tblInfo == null) {
-            //
-            // no table info means the lack of table definition before
-            String msg = String.format("Could not find table \"%s\".", this.table);
-            ExecutionException e = new ExecutionException(msg);
-            e.setFatal(true);
-            throw e;
-        }
-        //
-        // make row
-        Map<String, Object> row = new HashMap<>();
-        for (String col : tblInfo.keySet()) {
-            String value = this.globalContext.getVars().get(col).toString();
-            if (value == null) {
-                String msg = String.format("No value found for column \"%s\".", col);
-                ExecutionException e = new ExecutionException(msg);
-                e.setFatal(true);
-                throw e;
-            }
-            row.put(col, value);
-        }
-        //
-        //make sure that cannot insert a instance more than 1000 times per 1000ms
-        if(!this.globalContext.getVars().containsKey("currentTime")) {
-        	this.globalContext.getVars().put("currentTime", "0");
-        	this.globalContext.getVars().put("currentTimeCount", "0");
-        	this.currentTime = 0;
-        	this.currentTimeCount = 0;
-        } else {
-        	this.currentTime = Long.parseLong(this.globalContext.getVars().get("currentTime").toString());
-        	this.currentTimeCount = Integer.parseInt(this.globalContext.getVars().get("currentTimeCount").toString());
-        }
-        long t = System.currentTimeMillis();
-        if(currentTime == t) {
-        	currentTimeCount ++;
-        	this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
-        	if(currentTimeCount >= 1000) {
-            	try {
-            		Thread.sleep(1); 
-            		} catch(InterruptedException ex) {
-            		Thread.currentThread().interrupt();
-            		currentTimeCount = 0;
-            		this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
-            	}
-            	t = System.currentTimeMillis();
-            }
-        } else {
-        	 currentTimeCount = 0;
-        	 this.globalContext.getVars().put("currentTimeCount", currentTimeCount);
-        }
-        currentTime = t;
-        this.globalContext.getVars().put("currentTime", currentTime);
-        row.put("_timeStamp", currentTime);
-        //
-        // make SQL
-        String[] cols = row.keySet().toArray(new String[0]);
-        StringBuilder sb = new StringBuilder("INSERT INTO ");
-        sb.append(tblInfo.getName());
-        sb.append(" (");
-        sb.append(StringUtils.join(cols, ", "));
-        sb.append(")  VALUES (:");
-        sb.append(cols[0]);
-        for (int i = 1; i < cols.length; i++) {
-            sb.append(", :");
-            sb.append(cols[i]);
-        }
-        sb.append(");");
-        //
-        // do insert
-        if (this.globalContext.getRunnableTask().isTest()) {
-            //
-            // if test is set, just write the SQLs to log
-            long tid = this.globalContext.getRunnableTask().getId();
-            Loggers.getDefault().writeLog(tid, "TEST: insert an instance");
-        } else {
-            Session dbSession = Utils.getDBSession();
-            dbSession.beginTransaction();
-            try {
-                SQLQuery q = dbSession.createSQLQuery(sb.toString());
-                for (int i = 0; i < cols.length; i++) {
-                    q.setParameter(cols[i], row.get(cols[i]));
-                }
-                q.executeUpdate();
-                dbSession.getTransaction().commit();
-            } catch (RuntimeException e) {
-                dbSession.getTransaction().rollback();
-                throw new ExecutionException("Failed to insert instance", e);
-            } finally {
-                dbSession.close();
-            }
-        }
-        //
-        // Change the task statistics.
-        TaskStat taskStat = this.globalContext.getRunnableTask().getTaskStat();
-        taskStat.success();
-    }
+	//
+	// add the timeStamp to the table
+	long currentTime = 0L;
+	int currentTimeCount = 0;
+
+	//
+	// execution
+
+	@Override
+	public void exec() throws ExecutionException {
+		if (this.globalContext.isStopReq()) {
+			return;
+		}
+		//
+		// get table info
+		TableInfo tblInfo = this.globalContext.getTables().get(this.table);
+		if (tblInfo == null) {
+			//
+			// no table info means the lack of table definition before
+			String msg = String.format("Could not find table \"%s\".",
+					this.table);
+			ExecutionException e = new ExecutionException(msg);
+			e.setFatal(true);
+			throw e;
+		}
+		//
+		// make row
+		Map<String, Object> row = new HashMap<>();
+		for (String col : tblInfo.keySet()) {
+			String value = this.globalContext.getVars().get(col).toString();
+			if (value == null) {
+				String msg = String.format("No value found for column \"%s\".",
+						col);
+				ExecutionException e = new ExecutionException(msg);
+				e.setFatal(true);
+				throw e;
+			}
+			row.put(col, value);
+		}
+		//
+		// make sure that cannot insert a instance more than 1000 times per
+		// 1000ms
+		if (!this.globalContext.getVars().containsKey("currentTime")) {
+			this.globalContext.getVars().put("currentTime", "0");
+			this.globalContext.getVars().put("currentTimeCount", "0");
+			this.currentTime = 0;
+			this.currentTimeCount = 0;
+		} else {
+			this.currentTime = Long.parseLong(this.globalContext.getVars()
+					.get("currentTime").toString());
+			this.currentTimeCount = Integer.parseInt(this.globalContext
+					.getVars().get("currentTimeCount").toString());
+		}
+		long t = System.currentTimeMillis();
+		if (currentTime == t) {
+			currentTimeCount++;
+			this.globalContext.getVars().put("currentTimeCount",
+					currentTimeCount);
+			if (currentTimeCount >= 1000) {
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+					currentTimeCount = 0;
+					this.globalContext.getVars().put("currentTimeCount",
+							currentTimeCount);
+				}
+				t = System.currentTimeMillis();
+			}
+		} else {
+			currentTimeCount = 0;
+			this.globalContext.getVars().put("currentTimeCount",
+					currentTimeCount);
+		}
+		currentTime = t;
+		this.globalContext.getVars().put("currentTime", currentTime);
+		row.put("_timeStamp", currentTime);
+		//
+		// make SQL
+		String[] cols = row.keySet().toArray(new String[0]);
+		StringBuilder sb = new StringBuilder("INSERT INTO ");
+		sb.append(tblInfo.getName());
+		sb.append(" (");
+		sb.append(StringUtils.join(cols, ", "));
+		sb.append(")  VALUES (:");
+		sb.append(cols[0]);
+		for (int i = 1; i < cols.length; i++) {
+			sb.append(", :");
+			sb.append(cols[i]);
+		}
+		sb.append(");");
+		long tid = this.globalContext.getRunnableTask().getId();
+		//
+		// do insert
+		if (this.field.length() > 0) {
+			String v = this.globalContext.getVars().get(field).toString();
+			Session dbSession = Utils.getDBSession();
+			dbSession.beginTransaction();
+			String sql = "SELECT * FROM " + this.table + " WHERE " + this.field
+					+ "= '" + v + "'";
+			List list = null;
+			try {
+				list = dbSession.createSQLQuery(sql).list();
+			} catch (RuntimeException e) {
+				dbSession.getTransaction().rollback();
+				throw new ExecutionException("Failed to insert instance", e);
+			} finally {
+				dbSession.close();
+				if(list != null) {
+					if(list.size() > 0) {
+						Loggers.getDefault().writeLog(tid, "The table has included this info!");
+						return;
+					}
+				}
+			}
+		}
+		if (this.globalContext.getRunnableTask().isTest()) {
+			//
+			// if test is set, just write the SQLs to log
+			Loggers.getDefault().writeLog(tid, "TEST: insert an instance");
+		} else {
+			Session dbSession = Utils.getDBSession();
+			dbSession.beginTransaction();
+			try {
+				SQLQuery q = dbSession.createSQLQuery(sb.toString());
+				for (int i = 0; i < cols.length; i++) {
+					q.setParameter(cols[i], row.get(cols[i]));
+				}
+				q.executeUpdate();
+				dbSession.getTransaction().commit();
+			} catch (RuntimeException e) {
+				dbSession.getTransaction().rollback();
+				throw new ExecutionException("Failed to insert instance", e);
+			} finally {
+				dbSession.close();
+			}
+		}
+		//
+		// Change the task statistics.
+		TaskStat taskStat = this.globalContext.getRunnableTask().getTaskStat();
+		taskStat.success();
+	}
 }
