@@ -123,14 +123,23 @@ public class Save extends CrawlerRoutine {
 		//
 		// do insert
 		if (this.field.length() > 0) {
-			String v = this.globalContext.getVars().get(field).toString();
+			String fields[] = this.field.split(",");
+//			Map<String,String> map = new HashMap<>();
+			String v[] = new String[fields.length];
+			for(int i = 0; i < fields.length; i++) {
+				v[i] = this.globalContext.getVars().get(fields[i]).toString();
+			}
+			StringBuilder sb1 = new StringBuilder("SELECT * FROM ");
+			sb1.append(this.table + " WHERE ");
+			sb1.append(fields[0] + " = '" + v[0] + "'");
+			for(int i = 1; i < fields.length; i++) {
+				sb1.append(" AND " + fields[i] + " = '" + v[i] + "'"); 
+			}
 			Session dbSession = Utils.getDBSession();
 			dbSession.beginTransaction();
-			String sql = "SELECT * FROM " + this.table + " WHERE " + this.field
-					+ "= '" + v + "'";
 			List list = null;
 			try {
-				list = dbSession.createSQLQuery(sql).list();
+				list = dbSession.createSQLQuery(sb1.toString()).list();
 			} catch (RuntimeException e) {
 				dbSession.getTransaction().rollback();
 				throw new ExecutionException("Failed to insert instance", e);
@@ -143,6 +152,26 @@ public class Save extends CrawlerRoutine {
 					}
 				}
 			}
+//			String v = this.globalContext.getVars().get(field).toString();
+//			Session dbSession = Utils.getDBSession();
+//			dbSession.beginTransaction();
+//			String sql = "SELECT * FROM " + this.table + " WHERE " + this.field
+//					+ "= '" + v + "'";
+//			List list = null;
+//			try {
+//				list = dbSession.createSQLQuery(sql).list();
+//			} catch (RuntimeException e) {
+//				dbSession.getTransaction().rollback();
+//				throw new ExecutionException("Failed to insert instance", e);
+//			} finally {
+//				dbSession.close();
+//				if(list != null) {
+//					if(list.size() > 0) {
+//						Loggers.getDefault().writeLog(tid, "The table has included this info!");
+//						return;
+//					}
+//				}
+//			}
 		}
 		if (this.globalContext.getRunnableTask().isTest()) {
 			//

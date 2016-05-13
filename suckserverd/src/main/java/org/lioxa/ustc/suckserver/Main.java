@@ -102,6 +102,7 @@ public class Main {
         conf.addConfiguration(conf1);
         conf1.setProperty("db.type", "postgresql");
         conf1.setProperty("db.host", "localhost");
+//        conf1.setProperty("db.host", "192.168.1.108");
         conf1.setProperty("db.name", "testdb");
         conf1.setProperty("db.user", "postgres");
         conf1.setProperty("db.passwd", "postgres");

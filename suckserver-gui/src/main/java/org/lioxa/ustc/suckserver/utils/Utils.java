@@ -34,7 +34,7 @@ public class Utils {
 
     public static synchronized SuckService getSuckService() {
         try {
-            return (SuckService) Naming.lookup("rmi://localhost:38324/SuckService");
+            return (SuckService) Naming.lookup("rmi://127.0.0.1:38324/SuckService");
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             String msg = String.format("Failed to get SuckService: %s", e.getMessage());
             throw new RuntimeException(msg, e);
