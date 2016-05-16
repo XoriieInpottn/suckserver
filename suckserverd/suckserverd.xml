@@ -2,7 +2,7 @@
 <suckserver>
 	<db>
 		<type>postgresql</type>
-		<name>testdb</name>
+		<name>suckserver</name>
 		<user>postgres</user>
 		<passwd>postgres</passwd>
 	</db>
