@@ -41,6 +41,7 @@ public class Load extends CrawlerRoutine {
 			if (this.globalContext.isStopReq()) {
 				return;
 			}
+			String pre = this.globalContext.getBrowserDriver().getFirefoxDriver().getCurrentUrl();
 			long tid = this.globalContext.getRunnableTask().getId();
 			if (nextPath == null) {
 				Loggers.getDefault().writeError(tid,
@@ -60,6 +61,10 @@ public class Load extends CrawlerRoutine {
 				return;
 			}
 			this.globalContext.getBrowserDriver().windowForwardWithoutBefore();
+			String now = this.globalContext.getBrowserDriver().getFirefoxDriver().getCurrentUrl();
+			if(pre.equals(now)) {
+				return;
+			}
 			this.goPage();
 		}
 	}
