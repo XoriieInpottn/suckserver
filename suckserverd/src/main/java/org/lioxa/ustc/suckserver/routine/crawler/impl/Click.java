@@ -28,7 +28,7 @@ public class Click extends CrawlerRoutine {
     int delay = 2;
 
     @Param(name = "closeBefore")
-    String closeBefore = "false";
+    Boolean closeBefore = false;
 
     @Override
     public void exec() throws ExecutionException, ParameterException {
@@ -63,10 +63,10 @@ public class Click extends CrawlerRoutine {
         //
         // when closeBefore is null, the command is just a behavior, it cannot
         // execute SubRoutines
-        // when closeBefore is not null, it will load a new page and it will
-        // execute SubRoutines
         if (this.closeBefore != null) {
-            if (this.closeBefore.equals("true")) {
+            // when closeBefore is not null, it will load a new page and it will
+            // execute SubRoutines
+            if (this.closeBefore) {
                 this.globalContext.getBrowserDriver().windowForwardWithoutBefore();
                 this.goPage();
             } else {

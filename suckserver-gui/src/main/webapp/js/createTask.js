@@ -645,10 +645,6 @@ $(document)
 										},
 										buttons : {
 											"OK" : function() {
-												if (checkIsNull("click-path")) {
-													alert("Path of click cannot be null.");
-													return;
-												}
 												form = getForm("dialog-click",
 														"click");
 												var content = getContext(form);
