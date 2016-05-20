@@ -70,6 +70,10 @@ public class Browser {
         this.firefoxDriver.get("about:blank");
     }
 
+    //
+    // Options.
+    //
+
     /**
      * set Filters which you do not want to show in browser such as css,jpg...
      *
@@ -142,6 +146,10 @@ public class Browser {
         script = "window.invoke(\"deleteCookies\");";
         ((JavascriptExecutor) this.firefoxDriver).executeScript(script);
     }
+
+    //
+    // Load.
+    //
 
     /**
      * to connect with a url
@@ -428,4 +436,17 @@ public class Browser {
         }
         return list;
     }
+
+    //
+    // Misc.
+    //
+
+    @Override
+    protected void finalize() {
+        //
+        // If the task is terminated unnaturally, the browser must be released
+        // to prevent resources waste.
+        this.firefoxDriver.quit();
+    }
+
 }
