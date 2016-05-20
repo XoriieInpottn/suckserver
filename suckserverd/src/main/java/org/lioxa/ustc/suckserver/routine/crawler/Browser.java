@@ -9,8 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
@@ -71,7 +72,7 @@ public class Browser {
 
     /**
      * set Filters which you do not want to show in browser such as css,jpg...
-     * 
+     *
      * @param suffix
      */
     public void setSuffixFilters(String[] suffix) {
@@ -87,7 +88,7 @@ public class Browser {
 
     /**
      * change the User-Agent of this browser
-     * 
+     *
      * @param userAgent
      */
     public void setUserAgent(String userAgent) {
@@ -100,7 +101,7 @@ public class Browser {
 
     /**
      * set proxy for the browser
-     * 
+     *
      * @param type
      * @param host
      * @param port
@@ -144,7 +145,7 @@ public class Browser {
 
     /**
      * to connect with a url
-     * 
+     *
      * @param url
      */
     public void get(String url) {
@@ -153,7 +154,7 @@ public class Browser {
 
     /**
      * connect to a page with a limited time.
-     * 
+     *
      * @param url
      * @param time
      * @throws TimeoutException
@@ -181,33 +182,27 @@ public class Browser {
      * go to a pre window
      */
     public void windowBack() {
-        try {
-            this.firefoxDriver.close();
-            Set<String> set = this.firefoxDriver.getWindowHandles();
-            Object handles[] = set.toArray();
-            this.firefoxDriver.switchTo().window(handles[handles.length - 1].toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.firefoxDriver.close();
+        LinkedHashSet<String> set = (LinkedHashSet<String>) this.firefoxDriver.getWindowHandles();
+        Object handles[] = set.toArray();
+        this.firefoxDriver.switchTo().window(handles[handles.length - 1].toString());
     }
 
     /**
      * go to the next window. Note: without closing current window
      */
     public void windowForward() {
-        try {
-            String before = this.firefoxDriver.getWindowHandle();
-            Set<String> set = this.firefoxDriver.getWindowHandles();
-            Object handles[] = set.toArray();
-            ArrayList<String> array = new ArrayList<>();
-            for (int i = 0; i < handles.length; i++) {
-                array.add(handles[i].toString());
+        String crtHandler = this.firefoxDriver.getWindowHandle();
+        LinkedHashSet<String> handlers = (LinkedHashSet<String>) this.firefoxDriver.getWindowHandles();
+        Iterator<String> iter = handlers.iterator();
+        while (iter.hasNext()) {
+            String handler = iter.next();
+            if (handler.equals(crtHandler)) {
+                break;
             }
-            int i = array.indexOf(before);
-            this.firefoxDriver.switchTo().window(array.get(i + 1));
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        if (iter.hasNext()) {
+            this.firefoxDriver.switchTo().window(iter.next());
         }
     }
 
@@ -215,21 +210,18 @@ public class Browser {
      * go to the next window. Note: closing the current window at the same time
      */
     public void windowForwardWithoutBefore() {
-        try {
-            String before = this.firefoxDriver.getWindowHandle();
-            Set<String> set = this.firefoxDriver.getWindowHandles();
-            Object handles[] = set.toArray();
-            ArrayList<String> array = new ArrayList<>();
-            for (int i = 0; i < handles.length; i++) {
-                array.add(handles[i].toString());
+        String crtHandler = this.firefoxDriver.getWindowHandle();
+        LinkedHashSet<String> handlers = (LinkedHashSet<String>) this.firefoxDriver.getWindowHandles();
+        Iterator<String> iter = handlers.iterator();
+        while (iter.hasNext()) {
+            String handler = iter.next();
+            if (handler.equals(crtHandler)) {
+                break;
             }
-            int i = array.indexOf(before);
-            if (i < set.size() - 1) {
-                this.firefoxDriver.close();
-                this.firefoxDriver.switchTo().window(array.get(i + 1));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        if (iter.hasNext()) {
+            this.firefoxDriver.close();
+            this.firefoxDriver.switchTo().window(iter.next());
         }
     }
 
@@ -247,7 +239,7 @@ public class Browser {
 
     /**
      * make the scroll down
-     * 
+     *
      * @param time
      *            is set to wait the new page loading
      */
@@ -263,7 +255,7 @@ public class Browser {
 
     /**
      * make the scroll top
-     * 
+     *
      * @param time
      */
     public void scrollTop(long time) {
@@ -293,7 +285,7 @@ public class Browser {
 
     /**
      * this is to used to click a element
-     * 
+     *
      * @param elem
      * @param time
      * @return
@@ -334,7 +326,7 @@ public class Browser {
 
     /**
      * set the userAgent automatically according to the file
-     * 
+     *
      * @param path
      *            : the path of file which includes a lot of userAgent
      * @throws IOException
@@ -355,7 +347,7 @@ public class Browser {
 
     /**
      * cut the whole page of a driver
-     * 
+     *
      * @return
      * @throws IOException
      */
@@ -366,7 +358,7 @@ public class Browser {
 
     /**
      * cut the selected part of a page and save it.
-     * 
+     *
      * @param webElement
      * @param filePath
      * @throws IOException
