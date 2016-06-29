@@ -428,10 +428,10 @@ var _treeview = {
 	 * Move up a node
 	 */
 	upTreeNode : function(node) {
-		if(node == null) {
+		if (node == null) {
 			return;
 		}
-		if(node.index() > 0) {
+		if (node.index() > 0) {
 			var prev = node.prev();
 			node.detach();
 			node.insertBefore(prev);
@@ -441,12 +441,12 @@ var _treeview = {
 	 * Move down a node
 	 */
 	downTreeNode : function(node) {
-		if(node == null) {
+		if (node == null) {
 			return;
 		}
 		var parent = node.treeviewnode("getParent");
 		var size = parent.treeviewnode("getChildren").length;
-		if(node.index() < size - 1) {
+		if (node.index() < size - 1) {
 			var next = node.next();
 			node.detach();
 			node.insertAfter(next);
@@ -455,28 +455,28 @@ var _treeview = {
 	/*
 	 * Edit a tree node
 	 */
-	editTreeNode : function(node,form) {
-		if(node == null) {
+	editTreeNode : function(node, form) {
+		if (node == null) {
 			return;
 		}
-		node.treeviewnode("editNode",form);
+		node.treeviewnode("editNode", form);
 	},
 	/*
-	 * Create a tree 
+	 * Create a tree
 	 */
 	createTree : function(tree) {
-		var root = this.addNode(getContext(tree),tree);
+		var root = this.addNode(getContext(tree), tree);
 		var master = root;
-		this.f(tree,root);
+		this.f(tree, root);
 		return master;
 	},
-	
-	f : function(node,parent) {
-		if(node.nodes != undefined) {
-			for(var i = 0; i < node.nodes.length; i++) {
+
+	f : function(node, parent) {
+		if (node.nodes != undefined) {
+			for (var i = 0; i < node.nodes.length; i++) {
 				var child = node.nodes[i];
 				var p = this.addNode(getContext(child), child, parent);
-				this.f(child,p);
+				this.f(child, p);
 			}
 		}
 	}

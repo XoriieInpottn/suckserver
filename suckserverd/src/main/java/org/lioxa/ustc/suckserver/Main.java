@@ -28,6 +28,8 @@ public class Main {
     public static final String CONF_FILE = "suckserverd.xml";
     public static final CompositeConfiguration conf = new CompositeConfiguration();
 
+    static SuckServiceImpl suckService;
+
     public static void main(String[] args) {
         try {
             parseCommandLine(buildOptions(), args);
@@ -38,11 +40,24 @@ public class Main {
             int port = conf.getInt("listen-port");
             String url = String.format("rmi://%s:%d/SuckService", host, port);
             LocateRegistry.createRegistry(port);
-            Naming.rebind(url, new SuckServiceImpl());
+            suckService = new SuckServiceImpl();
+            Naming.rebind(url, suckService);
             System.out.printf("Listening %s ...\n", url);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        Runtime.getRuntime().addShutdownHook(new TerminateThread());
+    }
+
+    static class TerminateThread extends Thread {
+
+        @Override
+        public void run() {
+            System.out.println("Suckserver will be terminated.");
+            suckService.stopAllTasks();
+            System.out.println("All tasks have stopped.");
+        }
+
     }
 
     static Options buildOptions() {

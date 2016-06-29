@@ -1,39 +1,10 @@
 /*
- * map from name to text
- */
-var NODE_NAME_MAP = {
-	task : "新任务",
-	table : "创建表",
-	column : "创建列",
-	load : "载入页面",
-	select : "选择元素",
-	match : "文字匹配",
-	save : "保存表",
-	print : "输出",
-	"var" : "临时存储"
-};
-
-var ATTR_NAME_MAP = {
-	name : "名称",
-	type : "类型",
-	overlap : "覆盖",
-	content : "内容",
-	attr : "属性",
-	path : "路径",
-	"var" : "对象",
-	url : "地址",
-	"max-page" : "最大页数",
-	table : "表名",
-	value : "值"
-};
-
-/*
  * convert XML string to tree nodes
  */
 function xmlToTree(xml) {
 	var root = $($.parseXML(xml)).find("task");
-	if (root == undefined) {
-		console.err("The root tag must be <task>.");
+	if (root.length == 0) {
+		console.error("The root tag must be <task>.");
 	}
 	return _createTree(root.get(0));
 }
@@ -42,18 +13,16 @@ function xmlToTree(xml) {
  * create tree from DOM
  */
 function _createTree(elem) {
-	/*
-	 * create basic node
-	 */
+	//
+	// Create node data.
 	var node = {
 		data : {
-			name : elem.tagName,
+			name : toCamelCase(elem.tagName),
 			params : {}
 		}
 	};
-	/*
-	 * set params
-	 */
+	//
+	// Set params.
 	var params = node.data.params;
 	for ( var i in elem.attributes) {
 		var attr = elem.attributes[i];
@@ -63,11 +32,9 @@ function _createTree(elem) {
 		var value = attr.value;
 		value = escape(value);
 		params[attr.name] = value;
-//		params[attr.name] = attr.value;
 	}
-	/*
-	 * create child nodes
-	 */
+	//
+	// Create child nodes.
 	var childNodes = [];
 	$(elem).children().each(function(i, childElem) {
 		var childNode = _createTree(childElem);
@@ -80,34 +47,12 @@ function _createTree(elem) {
 }
 
 /*
- * add text to node
- */
-function addNodeText(node) {
-	var text = nodeNameToText(node.data.name);
-	var params = node.data.params;
-	var arr = [];
-	var count = 0;
-	for ( var i in params) {
-		if (count >= 2) {
-			break;
-		}
-		var name = attrNameToText(i);
-		var value = params[i];
-		arr[arr.length] = name + ": " + value;
-	}
-	if (arr.length > 0) {
-		text += " (" + arr.join(", ") + ")";
-	}
-	node.text = text;
-}
-/*
  * get content of a node
  */
 function getContext(node) {
 	if(node.data.name == undefined) {
 		return;
 	}
-//	var text = nodeNameToText(node.data.name);
 	var text = node.data.name;
 	var params = node.data.params;
 	var arr = [];
@@ -123,26 +68,6 @@ function getContext(node) {
 	}
 	if (arr.length > 0) {
 		text += " (" + arr.join(", ") + ")";
-	}
-	return text;
-}
-/*
- * get text from the map
- */
-function nodeNameToText(name) {
-	var text = NODE_NAME_MAP[name];
-	if (text == undefined) {
-		console.log("Node name " + name + " is not defined.");
-		text = name;
-	}
-	return text;
-}
-
-function attrNameToText(name) {
-	var text = ATTR_NAME_MAP[name];
-	if (text == undefined) {
-		console.log("Attribute name " + name + " is not defined.");
-		text = name;
 	}
 	return text;
 }
@@ -167,7 +92,7 @@ function treeToXML(root, level, str) {
 		console.error("Invalid tree node.");
 		return;
 	}
-	var name = data.name;
+	var name = toDomCase(data.name);
 	var params = data.params;
 	//
 	// indent
@@ -215,5 +140,26 @@ function escape(str) {
 //	str = str.replace(reg3,"&quot;");
 //	str = str.replace(reg4,"&apos;");
 	return str;
+}
+
+function toCamelCase(str) {
+	var name = "";
+	var words = str.split("-");
+	for (var i = 0; i < words.length; i++) {
+		var word = words[i];
+		word = word.substring(0, 1).toUpperCase() + word.substring(1);
+		name += word;
+	}
+	return name;
+}
+
+function toDomCase(str) {
+	var name = str.replace(/[A-Z]/, function(m) {
+		return "-" + m.toLowerCase();
+	});
+	if (name.length != 0 && name.charAt(0) == '-') {
+		name = name.substring(1);
+	}
+	return name;
 }
 

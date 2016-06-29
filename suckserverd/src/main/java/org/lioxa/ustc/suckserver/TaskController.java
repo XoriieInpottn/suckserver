@@ -1,7 +1,9 @@
 package org.lioxa.ustc.suckserver;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -106,6 +108,19 @@ public class TaskController {
      */
     synchronized RunnableTask removeTask(long tid) {
         return this.tasks.remove(tid);
+    }
+
+    /**
+     * Stop all running tasks.
+     */
+    public synchronized void stopAllTasks() {
+        Iterator<Entry<Long, RunnableTask>> iter = this.tasks.entrySet().iterator();
+        while (iter.hasNext()) {
+            Entry<Long, RunnableTask> entry = iter.next();
+            RunnableTask runnableTask = entry.getValue();
+            runnableTask.sendStopReq();
+            iter.remove();
+        }
     }
 
 }

@@ -28,7 +28,7 @@ input text {
 #main-bottom {
 	position: absolute;
 	left: 0;
-	right: 0px;
+	right: 175px;
 	bottom: 0px;
 	height: 20%;
 	background: #EEE;
@@ -51,9 +51,10 @@ input text {
 	right: 0px;
 	width: 175px;
 	top: 0px;
-	bottom: 20%;
+	bottom: 0px;
 	border-left: 1px solid #CCC;
 	background:#F5F5F5;
+	overflow: auto;
 }
 
 #main-mid {

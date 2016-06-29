@@ -7,15 +7,16 @@
 <title>Suckserver - Create Task</title>
 <link rel="stylesheet" href="<s:url value='/css/jquery-ui.min.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/common.css' />" />
-<link rel="stylesheet" href="<s:url value='/css/createTask.css' />" />
+<link rel="stylesheet" href="<s:url value='/css/create-task.css' />" />
 <link rel="stylesheet" href="<s:url value='/css/jquery-treeview.css' />" />
 <script src="<s:url value="/js/jquery.min.js" />"></script>
 <script src="<s:url value="/js/jquery-ui.min.js" />"></script>
+<script src="<s:url value="/js/jquery-treeview.js" />"></script>
+<script src="<s:url value="/js/jquery-formdialogs.js" />"></script>
 <script src="<s:url value="/js/common.js" />"></script>
-<script src="<s:url value="/js/createTask.js" />"></script>
+<script src="<s:url value="/js/create-task.js" />"></script>
 <script src="<s:url value="/js/xml-tree.js" />"></script>
 <script src="<s:url value="/js/request.js" />"></script>
-<script src="<s:url value="/js/jquery-treeview.js" />"></script>
 <%@ include file="actions.jsp"%>
 </head>
 <body>
@@ -46,51 +47,19 @@
 						</div>
 						<div id="tabs-2">
 							<div id="xml">
-								<textarea id="xml_text" onkeydown="tab(this)"></textarea>
+								<textarea id="xml_text""></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div id="main-right">
-					<div class="button-group" id="button-group">
-						<button id="btn-table">Table</button>
-						<button id="btn-column" class="margin-s">Column</button>
-						<button id="btn-load" class="margin-s">Load</button>
-						<button id="btn-select" class="margin-s">Select</button>
-						<button id="btn-match" class="margin-s">Match</button>
-						<button id="btn-save" class="margin-s">Save</button>
-						<button id="btn-print" class="margin-s">Print</button>
-						<button id="btn-var" class="margin-s">Var</button>
-						<button id="btn-scan" class="margin-s">Scan</button>
-						<button id="btn-subtask" class="margin-s">Subtask</button>
-						<button id="btn-click" class="margin-s">Click</button>
-						<button id="btn-type" class="margin-s">Type</button>
-						<button id="btn-validate" class="margin-s">Validate</button>
-						<button id="btn-drop" class="margin-s">Drop</button>
-						<button id="btn-while" class="margin-s">While</button>
-					</div>
+					<div id="routine-buttons" class="button-group"></div>
 				</div>
 				<div id="main-bottom">
 					<div></div>
 				</div>
 			</div>
-			<%@ include file="dialogs/task.jsp"%>
-			<%@ include file="dialogs/table.jsp"%>
-			<%@ include file="dialogs/column.jsp"%>
-			<%@ include file="dialogs/load.jsp"%>
-			<%@ include file="dialogs/select.jsp"%>
-			<%@ include file="dialogs/match.jsp"%>
-			<%@ include file="dialogs/save.jsp"%>
-			<%@ include file="dialogs/var.jsp"%>
-			<%@ include file="dialogs/print.jsp"%>
-			<%@ include file="dialogs/scan.jsp"%>
-			<%@ include file="dialogs/subtask.jsp"%>
-			<%@ include file="dialogs/click.jsp"%>
-			<%@ include file="dialogs/type.jsp"%>
-			<%@ include file="dialogs/drop.jsp"%>
-			<%@ include file="dialogs/ic.jsp"%>
-			<%@ include file="dialogs/validate.jsp"%>
-			<%@ include file="dialogs/while.jsp"%>
+			<div id="routine-dialogs"></div>
 		</div>
 	</div>
 </body>

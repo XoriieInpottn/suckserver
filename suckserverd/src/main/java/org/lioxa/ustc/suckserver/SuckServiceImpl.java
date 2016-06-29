@@ -121,4 +121,15 @@ public class SuckServiceImpl extends UnicastRemoteObject implements SuckService 
         runnableTask.getContext().setIcvalue(icValue);
     }
 
+    //
+    //
+    //
+
+    /**
+     * Stop all running tasks.
+     */
+    public void stopAllTasks() {
+        this.controller.stopAllTasks();
+    }
+
 }

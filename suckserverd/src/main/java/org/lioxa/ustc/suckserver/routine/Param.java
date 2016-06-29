@@ -20,4 +20,6 @@ public @interface Param {
 
     boolean essential() default false;
 
+    String tips() default "";
+
 }

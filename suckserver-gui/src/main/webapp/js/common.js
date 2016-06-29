@@ -25,7 +25,7 @@ function getUrlVars() {
  * to check whether the element is null
  */
 function checkIsNull(id) {
-	if ($("#"+id).val() == "") {
+	if ($("#" + id).val() == "") {
 		return true;
 	}
 	return false;
@@ -34,8 +34,10 @@ function checkIsNull(id) {
  * to check whether the element is illegal
  */
 function checkIsIllegal(reg, id) {
-	if (!reg.test($("#"+id).val())){
+	if (!reg.test($("#" + id).val())) {
 		return true;
 	}
 	return false;
 }
+
+
