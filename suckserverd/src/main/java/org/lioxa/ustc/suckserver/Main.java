@@ -13,6 +13,7 @@ import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.lioxa.ustc.suckserver.routine.crawler.RoutineInfoDumper;
 
 /**
  *
@@ -43,6 +44,7 @@ public class Main {
             suckService = new SuckServiceImpl();
             Naming.rebind(url, suckService);
             System.out.printf("Listening %s ...\n", url);
+            new RoutineInfoDumper().dump();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
