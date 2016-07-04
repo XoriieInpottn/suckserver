@@ -7,20 +7,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 
+ * @author kevin
  *
- * @author xi
- * @since Nov 16, 2015
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Param {
-
-    String name();
-
-    boolean essential() default false;
-
-    String tips() default "";
-    
+@Target(ElementType.TYPE)
+public @interface Order {
+	
+	int value() default 0;
 
 }

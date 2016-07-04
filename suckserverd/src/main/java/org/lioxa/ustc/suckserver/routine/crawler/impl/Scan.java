@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.Routine;
@@ -17,6 +18,7 @@ import org.lioxa.ustc.suckserver.utils.Utils;
  * @author kevin
  *
  */
+@Order(4000)
 public class Scan extends CrawlerRoutine {
 
 	@Param(name = "name", essential = true)

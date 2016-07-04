@@ -1,6 +1,7 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
@@ -10,6 +11,7 @@ import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
  * @author kevin
  *
  */
+@Order(2000)
 public class Subtask extends CrawlerRoutine implements Runnable {
 
     @Param(name = "name", essential = true)

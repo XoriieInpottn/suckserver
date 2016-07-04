@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
@@ -16,6 +17,7 @@ import org.openqa.selenium.WebElement;
  * @author xi
  * @since Nov 21, 2015
  */
+@Order(7000)
 public class Match extends CrawlerRoutine {
 
     @Param(name = "var", essential = true)

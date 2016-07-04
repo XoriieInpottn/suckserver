@@ -1,6 +1,7 @@
 package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
@@ -11,6 +12,7 @@ import org.lioxa.ustc.suckserver.utils.TableInfo;
  * @author xi
  * @since Nov 19, 2015
  */
+@Order(9500)
 public class Column extends CrawlerRoutine {
 
     @Param(name = "name", essential = true)

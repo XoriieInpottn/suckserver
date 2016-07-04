@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import org.hibernate.Session;
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.Routine;
@@ -18,6 +19,7 @@ import org.lioxa.ustc.suckserver.utils.Utils;
  * @author xi
  * @since Nov 19, 2015
  */
+@Order(10000)
 public class Table extends CrawlerRoutine {
 
     @Param(name = "name", essential = true)

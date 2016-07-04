@@ -2,6 +2,7 @@ package org.lioxa.ustc.suckserver.routine.crawler.impl;
 
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
@@ -11,6 +12,7 @@ import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
  * @author kevin
  *
  */
+@Order(4500)
 public class While extends CrawlerRoutine {
 
 	@Param(name = "var", essential = true)

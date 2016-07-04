@@ -22,891 +22,891 @@ $(document)
 							});
 					master.treeviewnode("expand");
 					master.treeviewnode("setSelect");
-					$("#dialog-task")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 400,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("task-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												form = getForm("dialog-task",
-														"task");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-task").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-task").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-task");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-subtask")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 200,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("subtask-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												form = getForm(
-														"dialog-subtask",
-														"subtask");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-subtask").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-subtask").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-subtask");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-table")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 250,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("table-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												var reg = /^[a-zA-Z]/;
-												if (checkIsIllegal(reg,
-														"table-name")) {
-													alert("table name is illegal");
-													return;
-												}
-												form = getForm("dialog-table",
-														"table");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-table").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-table").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-table");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-column")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 300,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("column-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												var reg1 = /^[a-zA-Z]/;
-												if (checkIsIllegal(reg1,
-														"column-name")) {
-													alert("column name is illegal");
-													return;
-												}
-												if ($("#column-type").val() != "") {
-													var reg2 = /^string$|^text$|^int$|^float$|^double$|^bool$|^boolean$/;
-													if (checkIsIllegal(reg2,
-															"column-type")) {
-														alert("column type is illegal");
-														return;
-													}
-												}
-												if ($("#column-type").val() == "") {
-													$("#column-type").val(
-															"text");
-												}
-												form = getForm("dialog-column",
-														"column");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-column").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-column").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-column");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-load")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 400,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if ($("#load-maxPage").val() != "") {
-													var reg = /^[1-9]\d*|0$/;
-													if (checkIsIllegal(reg,
-															"load-maxPage")) {
-														alert("MaxPage is illegal");
-														return;
-													}
-													if (checkIsNull("load-nextPath")) {
-														alert("NextPath cannot be null");
-														return;
-													}
-												}
-												form = getForm("dialog-load",
-														"load");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-load").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-load").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-load");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-select")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 250,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("select-path")) {
-													alert("Path cannot be null");
-													return;
-												}
-												form = getForm("dialog-select",
-														"select");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-select").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-select").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-select");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-match")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 400,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("match-var")) {
-													alert("var cannot be null");
-													return;
-												}
-												form = getForm("dialog-match",
-														"match");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-match").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-match").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-match");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-save")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 300,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("save-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												var reg = /^[a-zA-Z]/;
-												if (checkIsIllegal(reg,
-														"save-name")) {
-													alert("name is illegal");
-													return;
-												}
-												form = getForm("dialog-save",
-														"save");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-save").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-save").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-save");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-var")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 300,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("var-name")) {
-													alert("name cannot be null");
-													return;
-												}
-												var reg = /^[a-zA-Z]/;
-												if (checkIsIllegal(reg,
-														"var-name")) {
-													alert("name is illegal");
-													return;
-												}
-												form = getForm("dialog-var",
-														"var");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-var")
-														.dialog("close");
-											},
-											"Cancel" : function() {
-												$("#dialog-var")
-														.dialog("close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-var");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-print")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 300,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("print-content")) {
-													alert("name cannot be null");
-													return;
-												}
-												if ($("#print-html").val() != "") {
-													var reg = /^true$|^false$/;
-													if (checkIsIllegal(reg,
-															"print-html")) {
-														alert("Html is illegal");
-														return;
-													}
-												}
-												form = getForm("dialog-print",
-														"print");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-print").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-print").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-print");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-scan")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 440,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												form = getForm("dialog-scan",
-														"scan");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-scan").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-scan").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-scan");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-click")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 525,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												form = getForm("dialog-click",
-														"click");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-click").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-click").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-click");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-drop")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 325,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												form = getForm("dialog-drop",
-														"drop");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-drop").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-drop").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-drop");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-type")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 400,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("type-path")) {
-													alert("the path of type cannot be null.");
-													return;
-												}
-												form = getForm("dialog-type",
-														"type");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-type").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-type").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-type");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-validate")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 400,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												if (checkIsNull("validate-valuePath")) {
-													alert("the valuePath of validate cannot be null.");
-													return;
-												}
-												form = getForm(
-														"dialog-validate",
-														"validate");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-validate").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-validate").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-validate");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
-					$("#dialog-ic").dialog({
-						autoOpen : false,
-						height : 200,
-						width : 250,
-						modal : true,
-						show : {
-							effect : "blind",
-							duration : 200
-						},
-						buttons : {
-							"OK" : function() {
-								if (checkIsNull("ic-text")) {
-									alert("the content cannot be null.");
-									return;
-								}
-								sendIC($("#ic-text").val());
-								$("#dialog-ic").dialog("close");
-							},
-							"Cancel" : function() {
-								$("#dialog-type").dialog("close");
-							}
-						},
-						close : function() {
-							emptyForm("dialog-ic");
-						}
-					}).keydown(function(e) {
-						if (e.which == 13) {
-							e.preventDefault();
-							$(this).parent().find("button:eq(1)").click();
-						}
-					});
-					$("#dialog-while")
-							.dialog(
-									{
-										autoOpen : false,
-										height : 425,
-										width : 350,
-										modal : true,
-										show : {
-											effect : "blind",
-											duration : 200
-										},
-										buttons : {
-											"OK" : function() {
-												form = getForm("dialog-while",
-														"while");
-												var content = getContext(form);
-												var node = master
-														.treeviewnode("getSelectedNode");
-												if (isEdit) {
-													treeview.treeview(
-															"editTreeNode",
-															node, form);
-												} else {
-													treeview.treeview(
-															"addNode", content,
-															form, node);
-												}
-												$("#dialog-while").dialog(
-														"close");
-											},
-											"Cancel" : function() {
-												$("#dialog-while").dialog(
-														"close");
-											}
-										},
-										close : function() {
-											isEdit = false;
-											emptyForm("dialog-while");
-										}
-									}).keydown(
-									function(e) {
-										if (e.which == 13) {
-											e.preventDefault();
-											$(this).parent().find(
-													"button:eq(1)").click();
-										}
-									});
+//					$("#dialog-task")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 400,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("task-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												form = getForm("dialog-task",
+//														"task");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-task").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-task").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-task");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-subtask")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 200,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("subtask-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												form = getForm(
+//														"dialog-subtask",
+//														"subtask");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-subtask").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-subtask").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-subtask");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-table")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 250,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("table-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												var reg = /^[a-zA-Z]/;
+//												if (checkIsIllegal(reg,
+//														"table-name")) {
+//													alert("table name is illegal");
+//													return;
+//												}
+//												form = getForm("dialog-table",
+//														"table");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-table").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-table").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-table");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-column")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 300,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("column-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												var reg1 = /^[a-zA-Z]/;
+//												if (checkIsIllegal(reg1,
+//														"column-name")) {
+//													alert("column name is illegal");
+//													return;
+//												}
+//												if ($("#column-type").val() != "") {
+//													var reg2 = /^string$|^text$|^int$|^float$|^double$|^bool$|^boolean$/;
+//													if (checkIsIllegal(reg2,
+//															"column-type")) {
+//														alert("column type is illegal");
+//														return;
+//													}
+//												}
+//												if ($("#column-type").val() == "") {
+//													$("#column-type").val(
+//															"text");
+//												}
+//												form = getForm("dialog-column",
+//														"column");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-column").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-column").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-column");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-load")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 400,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if ($("#load-maxPage").val() != "") {
+//													var reg = /^[1-9]\d*|0$/;
+//													if (checkIsIllegal(reg,
+//															"load-maxPage")) {
+//														alert("MaxPage is illegal");
+//														return;
+//													}
+//													if (checkIsNull("load-nextPath")) {
+//														alert("NextPath cannot be null");
+//														return;
+//													}
+//												}
+//												form = getForm("dialog-load",
+//														"load");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-load").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-load").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-load");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-select")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 250,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("select-path")) {
+//													alert("Path cannot be null");
+//													return;
+//												}
+//												form = getForm("dialog-select",
+//														"select");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-select").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-select").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-select");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-match")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 400,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("match-var")) {
+//													alert("var cannot be null");
+//													return;
+//												}
+//												form = getForm("dialog-match",
+//														"match");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-match").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-match").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-match");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-save")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 300,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("save-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												var reg = /^[a-zA-Z]/;
+//												if (checkIsIllegal(reg,
+//														"save-name")) {
+//													alert("name is illegal");
+//													return;
+//												}
+//												form = getForm("dialog-save",
+//														"save");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-save").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-save").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-save");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-var")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 300,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("var-name")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												var reg = /^[a-zA-Z]/;
+//												if (checkIsIllegal(reg,
+//														"var-name")) {
+//													alert("name is illegal");
+//													return;
+//												}
+//												form = getForm("dialog-var",
+//														"var");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-var")
+//														.dialog("close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-var")
+//														.dialog("close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-var");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-print")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 300,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("print-content")) {
+//													alert("name cannot be null");
+//													return;
+//												}
+//												if ($("#print-html").val() != "") {
+//													var reg = /^true$|^false$/;
+//													if (checkIsIllegal(reg,
+//															"print-html")) {
+//														alert("Html is illegal");
+//														return;
+//													}
+//												}
+//												form = getForm("dialog-print",
+//														"print");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-print").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-print").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-print");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-scan")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 440,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												form = getForm("dialog-scan",
+//														"scan");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-scan").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-scan").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-scan");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-click")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 525,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												form = getForm("dialog-click",
+//														"click");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-click").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-click").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-click");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-drop")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 325,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												form = getForm("dialog-drop",
+//														"drop");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-drop").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-drop").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-drop");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-type")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 400,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("type-path")) {
+//													alert("the path of type cannot be null.");
+//													return;
+//												}
+//												form = getForm("dialog-type",
+//														"type");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-type").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-type").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-type");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-validate")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 400,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												if (checkIsNull("validate-valuePath")) {
+//													alert("the valuePath of validate cannot be null.");
+//													return;
+//												}
+//												form = getForm(
+//														"dialog-validate",
+//														"validate");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-validate").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-validate").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-validate");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
+//					$("#dialog-ic").dialog({
+//						autoOpen : false,
+//						height : 200,
+//						width : 250,
+//						modal : true,
+//						show : {
+//							effect : "blind",
+//							duration : 200
+//						},
+//						buttons : {
+//							"OK" : function() {
+//								if (checkIsNull("ic-text")) {
+//									alert("the content cannot be null.");
+//									return;
+//								}
+//								sendIC($("#ic-text").val());
+//								$("#dialog-ic").dialog("close");
+//							},
+//							"Cancel" : function() {
+//								$("#dialog-type").dialog("close");
+//							}
+//						},
+//						close : function() {
+//							emptyForm("dialog-ic");
+//						}
+//					}).keydown(function(e) {
+//						if (e.which == 13) {
+//							e.preventDefault();
+//							$(this).parent().find("button:eq(1)").click();
+//						}
+//					});
+//					$("#dialog-while")
+//							.dialog(
+//									{
+//										autoOpen : false,
+//										height : 425,
+//										width : 350,
+//										modal : true,
+//										show : {
+//											effect : "blind",
+//											duration : 200
+//										},
+//										buttons : {
+//											"OK" : function() {
+//												form = getForm("dialog-while",
+//														"while");
+//												var content = getContext(form);
+//												var node = master
+//														.treeviewnode("getSelectedNode");
+//												if (isEdit) {
+//													treeview.treeview(
+//															"editTreeNode",
+//															node, form);
+//												} else {
+//													treeview.treeview(
+//															"addNode", content,
+//															form, node);
+//												}
+//												$("#dialog-while").dialog(
+//														"close");
+//											},
+//											"Cancel" : function() {
+//												$("#dialog-while").dialog(
+//														"close");
+//											}
+//										},
+//										close : function() {
+//											isEdit = false;
+//											emptyForm("dialog-while");
+//										}
+//									}).keydown(
+//									function(e) {
+//										if (e.which == 13) {
+//											e.preventDefault();
+//											$(this).parent().find(
+//													"button:eq(1)").click();
+//										}
+//									});
 					$("#btn-edit").button().click(function() {
 						var node = master.treeviewnode("getSelectedNode");
 						if (node) {

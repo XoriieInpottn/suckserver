@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.lioxa.ustc.suckserver.common.vo.TaskStat;
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
 import org.lioxa.ustc.suckserver.utils.TableInfo;
@@ -20,6 +21,7 @@ import org.lioxa.ustc.suckserver.utils.Utils;
  * @author xi
  * @since Nov 24, 2015
  */
+@Order(3000)
 public class Save extends CrawlerRoutine {
 
     @Param(name = "table", essential = true)

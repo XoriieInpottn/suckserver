@@ -1,12 +1,12 @@
 /**
  * 
  */
-
+var editor;
 $(document).ready(function() {
-	var editor = $("body").taskeditor();
+	editor = $("body").taskeditor();
 	// var form;
-	// $("#add-task").addClass("ui-state-active");
-	// $("#task-list").removeClass("ui-state-active");
+	 $("#add-task").addClass("ui-state-active");
+	 $("#task-list").removeClass("ui-state-active");
 	// window.onload = function() {
 	// centerBG();
 	// }
@@ -211,6 +211,15 @@ var _taskeditor = {
 	},
 	_getRoutineDialogs : function() {
 		return $("#routine-dialogs");
+	},
+	getTemplate : function() {
+		var that = this;
+		if (that.isTree) {
+			var str = treeToXML(that.rootNode, 0, str);
+		} else {
+			var str = $("#xml_text").val().trim();
+		}
+		return str;
 	}
 };
 

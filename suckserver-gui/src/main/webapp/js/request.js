@@ -3,23 +3,9 @@ var list = new Array();
 var i = 0;
 $(document).ready(function() {
 	$("#btn-test").click(function() {
-		if (isTree) {
-			var size = master.treeviewnode("getChildren").length;
-			if (size == undefined || size <= 0) {
-				alert("模板为空！无法执行");
-				return;
-			}
-		}
 		createTask(true);
 	});
 	$("#btn-submit").click(function() {
-		if (isTree) {
-			var size = master.treeviewnode("getChildren").length;
-			if (size == undefined || size <= 0) {
-				alert("模板为空！无法执行");
-				return;
-			}
-		}
 		createTask(false);
 	});
 	$("#btn-quit").click(function() {
@@ -52,13 +38,8 @@ function clearLog() {
 }
 
 function createTask(test) {
-	var template;
-	if (isTree) {
-		var root = master;
-		template = treeToXML(root, 0, template);
-	} else {
-		template = $("#xml_text").val();
-	}
+	var template = editor.taskeditor("getTemplate");
+	console.log(template);
 	$.ajax({
 		type : "POST",
 		url : URL_CREATE_TASK,

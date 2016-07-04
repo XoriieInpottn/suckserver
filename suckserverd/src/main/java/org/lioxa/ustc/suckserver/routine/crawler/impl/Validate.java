@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.lioxa.ustc.suckserver.log.Loggers;
 import org.lioxa.ustc.suckserver.routine.ExecutionException;
+import org.lioxa.ustc.suckserver.routine.Order;
 import org.lioxa.ustc.suckserver.routine.Param;
 import org.lioxa.ustc.suckserver.routine.ParameterException;
 import org.lioxa.ustc.suckserver.routine.crawler.CrawlerRoutine;
@@ -15,7 +16,9 @@ import org.openqa.selenium.WebElement;
  * 
  * @author kevin
  *
+ *
  */
+@Order(1000)
 public class Validate extends CrawlerRoutine {
 
 	@Param(name = "path", essential = true)
