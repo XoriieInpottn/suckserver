@@ -26,75 +26,71 @@ import org.openqa.selenium.io.IOUtils;
  */
 public class RoutineInfoDumper {
 
-	public static final String CRAWLER_ROUTINE_PACKAGE = "org.lioxa.ustc.suckserver.routine.crawler.impl";
-	public static final String DUMP_FILENAME = System
-			.getProperty("java.io.tmpdir")
-			+ File.separator
-			+ "suckservers-routines.json";
-     
-	public void dump() throws IOException {
-		JSONArray routines = new JSONArray();
-		List<JSONObject> lst = new LinkedList<>();
-		Collection<Class<?>> routineTypes = Reflects.getClasses(
-				CRAWLER_ROUTINE_PACKAGE, false);
-		for (Class<?> clazz : routineTypes) {
-			if (!Reflects.hasSuper(clazz, CrawlerRoutine.class)) {
-				continue;
-			}
-			JSONObject routine = new JSONObject();
-			// routines.put(routine);
-			lst.add(routine);
-			routine.put("name", clazz.getSimpleName());
-			JSONArray params = new JSONArray();
-			routine.put("params", params);
-			for (Field field : clazz.getDeclaredFields()) {
-				Param annParam = field.getAnnotation(Param.class);
-				if (annParam == null) {
-					continue;
-				}
-				JSONObject param = new JSONObject();
-				params.put(param);
-				param.put("name", field.getName());
-				param.put("type", field.getType().getSimpleName());
-				param.put("essential", annParam.essential());
-				param.put("tips", annParam.tips());
-			}
-			Order annOrder = clazz.getAnnotation(Order.class);
-			routine.put("order", annOrder == null ? 0 : annOrder.value());
-		}
-		Collections.sort(lst, new Comparator<JSONObject>() {
+    public static final String CRAWLER_ROUTINE_PACKAGE = "org.lioxa.ustc.suckserver.routine.crawler.impl";
+    public static final String DUMP_FILENAME = "/tmp/suckservers-routines.json";
 
-			@Override
-			public int compare(JSONObject arg0, JSONObject arg1) {
-				int order0 = arg0.getInt("order");
-				int order1 = arg1.getInt("order");
-				return order1 - order0;
-			}
+    public void dump() throws IOException {
+        JSONArray routines = new JSONArray();
+        List<JSONObject> lst = new LinkedList<>();
+        Collection<Class<?>> routineTypes = Reflects.getClasses(CRAWLER_ROUTINE_PACKAGE, false);
+        for (Class<?> clazz : routineTypes) {
+            if (!Reflects.hasSuper(clazz, CrawlerRoutine.class)) {
+                continue;
+            }
+            JSONObject routine = new JSONObject();
+            // routines.put(routine);
+            lst.add(routine);
+            routine.put("name", clazz.getSimpleName());
+            JSONArray params = new JSONArray();
+            routine.put("params", params);
+            for (Field field : clazz.getDeclaredFields()) {
+                Param annParam = field.getAnnotation(Param.class);
+                if (annParam == null) {
+                    continue;
+                }
+                JSONObject param = new JSONObject();
+                params.put(param);
+                param.put("name", field.getName());
+                param.put("type", field.getType().getSimpleName());
+                param.put("essential", annParam.essential());
+                param.put("tips", annParam.tips());
+            }
+            Order annOrder = clazz.getAnnotation(Order.class);
+            routine.put("order", annOrder == null ? 0 : annOrder.value());
+        }
+        Collections.sort(lst, new Comparator<JSONObject>() {
 
-		});
-		for (JSONObject jobj : lst) {
-			routines.put(jobj);
-		}
-		Writer writer = null;
-		try {
-			writer = new FileWriter(DUMP_FILENAME);
-			routines.write(writer);
-		} catch (IOException e) {
-			throw e;
-		} finally {
-			if (writer != null) {
-				IOUtils.closeQuietly(writer);
-			}
-		}
-	}
+            @Override
+            public int compare(JSONObject arg0, JSONObject arg1) {
+                int order0 = arg0.getInt("order");
+                int order1 = arg1.getInt("order");
+                return order1 - order0;
+            }
 
-	public void clean() {
-		FileUtils.deleteQuietly(new File(DUMP_FILENAME));
-	}
+        });
+        for (JSONObject jobj : lst) {
+            routines.put(jobj);
+        }
+        Writer writer = null;
+        try {
+            writer = new FileWriter(DUMP_FILENAME);
+            routines.write(writer);
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (writer != null) {
+                IOUtils.closeQuietly(writer);
+            }
+        }
+    }
 
-	public static void main(String[] args) throws IOException {
-		new RoutineInfoDumper().dump();
-		System.out.println("complete");
-	}
+    public void clean() {
+        FileUtils.deleteQuietly(new File(DUMP_FILENAME));
+    }
+
+    public static void main(String[] args) throws IOException {
+        new RoutineInfoDumper().dump();
+        System.out.println("complete");
+    }
 
 }

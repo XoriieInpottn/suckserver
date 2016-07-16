@@ -19,7 +19,7 @@ public class GetRoutinesAction extends AbstractJSONAction {
 
     @Override
     public void execute(Map<String, Object> result) {
-        File file = new File(System.getProperty("java.io.tmpdir") + File.separator + "suckservers-routines.json");
+        File file = new File("/tmp/suckservers-routines.json");
         String content;
         try {
             content = FileUtils.readFileToString(file);

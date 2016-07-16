@@ -106,6 +106,8 @@ public class Reflects {
             if (!(entryName.startsWith(pkgPath) && entryName.endsWith(".class"))) {
                 continue;
             }
+            //
+            // TODO: Have bugs.
             if (!recursive) {
                 int len = entryName.length();
                 for (int i = pkgPath.length() + 1; i < len; i++) {
