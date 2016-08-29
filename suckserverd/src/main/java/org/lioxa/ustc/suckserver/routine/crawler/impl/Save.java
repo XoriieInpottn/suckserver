@@ -100,6 +100,7 @@ public class Save extends CrawlerRoutine {
         this.currentTime = t;
         this.globalContext.getVars().put("currentTime", this.currentTime);
         row.put("_timeStamp", this.currentTime);
+        row.put("_isvisited", 0);
         //
         // make SQL
         String[] cols = row.keySet().toArray(new String[0]);
@@ -142,11 +143,20 @@ public class Save extends CrawlerRoutine {
                 dbSession.close();
                 if (lst != null) {
                     if (lst.size() > 0) {
-                        Loggers.getDefault().writeLog(tid, "The table has included this info!");
+                        if(this.getMasterContext().get("repeatNum") != null) {
+                        	int i = (int) this.getMasterContext().get("repeatNum");
+                        	i ++;
+                        	this.getMasterContext().put("repeatNum", i);
+                        }
                         return;
-                    }
-                }
+                    } else {
+                    	if(this.getMasterContext().get("repeatNum") != null) {
+                    		this.getMasterContext().put("repeatNum", 0);
+                    	}
+                    } 
+                } 
             }
+            
             // String v = this.globalContext.getVars().get(field).toString();
             // Session dbSession = Utils.getDBSession();
             // dbSession.beginTransaction();

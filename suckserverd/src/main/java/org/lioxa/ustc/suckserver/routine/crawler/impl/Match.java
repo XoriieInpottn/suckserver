@@ -28,6 +28,12 @@ public class Match extends CrawlerRoutine {
 
     @Param(name = "attr")
     String attr;
+    
+    @Param(name = "retry")
+    int retry = 0;
+    
+    @Param(name = "delay")
+    int delay = 0;
 
     @Param(name = "regexp")
     String regexp = ".*";
@@ -116,12 +122,13 @@ public class Match extends CrawlerRoutine {
         if (this.path != null) {
         	WebElement elems = null;
 			try {
-				elems = this.globalContext.getBrowserDriver().select(dom, this.path, 3, 2).get(0);
+//				elems = this.globalContext.getBrowserDriver().select(dom, this.path, 3, 2).get(0);
+				elems = this.globalContext.getBrowserDriver().select(dom, this.path, this.retry, this.delay).get(0);
 			} catch (Exception e) {
 			}
 			if(elems == null) {
 				Loggers.getDefault().writeLog(tid, "Match cannot find the element");
-				this.globalContext.getVars().put(this.var, "THE ELEMENT IS NULL!");
+				this.globalContext.getVars().put(this.var, "");
 				return;
 			}
             rawStr = this.attr == null ? elems.getText() : elems.getAttribute(this.attr);

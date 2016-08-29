@@ -100,6 +100,9 @@ public abstract class Routine<T extends Context> {
             this.setParams(this.params);
             this.exec();
         } catch (ParameterException | ExecutionException | RuntimeException e) {
+        	if(e.getMessage().contains("Content of select is null")) { //for Test, if select content is null, it will throw exception.
+        		throw e;
+        	}
             if (e instanceof HandledException) {
                 throw e;
             }

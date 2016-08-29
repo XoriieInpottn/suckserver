@@ -20,9 +20,6 @@ public class Click extends CrawlerRoutine {
     @Param(name = "path")
     String path;
 
-    @Param(name = "count")
-    int count = 1;
-
     @Param(name = "retry")
     int retry = 2;
 
@@ -30,7 +27,7 @@ public class Click extends CrawlerRoutine {
     int delay = 2;
 
     @Param(name = "closeBefore")
-    Boolean closeBefore = false;
+    Boolean closeBefore;
 
     @Override
     public void exec() throws ExecutionException, ParameterException {
@@ -78,23 +75,9 @@ public class Click extends CrawlerRoutine {
             }
             return;
         }
-
-        for (int i = 1; i < this.count; i++) {
-            if (this.globalContext.isStopReq()) {
-                return;
-            }
-            if (!this.globalContext.getBrowserDriver().click(element, 8)) {
-                Loggers.getDefault().writeLog(tid, "The command of click cannot make effect!");
-                return;
-            }
-            try {
-                Thread.sleep(this.delay * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if(this.subRoutines.size() > 0) {
+        	this.goPage();        
         }
-        WebElement newElement = this.globalContext.getBrowserDriver().select("body", this.retry, this.delay).get(0);
-        this.getMasterContext().put("dom", newElement);
     }
 
     public void goPage() throws ParameterException, ExecutionException {
