@@ -48,14 +48,17 @@ public class Load extends CrawlerRoutine {
 			}
 			String pre = this.globalContext.getBrowserDriver()
 					.getFirefoxDriver().getCurrentUrl();
+			String preSource = this.globalContext.getBrowserDriver().getFirefoxDriver().getPageSource();
 			long tid = this.globalContext.getRunnableTask().getId();
 			if (this.nextPath == null) {
 				Loggers.getDefault().writeError(tid,
 						"nextPath of Load cannot be null!");
 				return;
 			}
+			System.out.println(this.nextPath);
 			List<WebElement> elems = this.globalContext.getBrowserDriver()
 					.select(this.nextPath, 3, 2);
+			System.out.println(elems.size());
 			if (elems.size() == 0) {
 				elems = this.globalContext.getBrowserDriver()
 						.getFirefoxDriver()
@@ -78,7 +81,8 @@ public class Load extends CrawlerRoutine {
 			this.globalContext.getBrowserDriver().windowForwardWithoutBefore();
 			String now = this.globalContext.getBrowserDriver()
 					.getFirefoxDriver().getCurrentUrl();
-			if (pre.equals(now)) {
+			String nowSource = this.globalContext.getBrowserDriver().getFirefoxDriver().getPageSource();
+			if (preSource.equals(nowSource)) {
 				return;
 			}
 			this.goPage();

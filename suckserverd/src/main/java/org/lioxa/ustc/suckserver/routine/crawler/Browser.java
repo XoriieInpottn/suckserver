@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -409,7 +410,12 @@ public class Browser {
     public List<WebElement> select(String path, long delay, int retry) {
         List<WebElement> list = null;
         for (int i = 0; i < retry + 1; i++) {
-            list = this.firefoxDriver.findElements(By.cssSelector(path));
+        	try {
+        		list = this.firefoxDriver.findElements(By.cssSelector(path));
+        	} catch(Exception e) {
+        		list = new LinkedList<WebElement>();
+        		return list;
+        	}
             if (list.size() > 0) {
                 return list;
             }

@@ -126,6 +126,7 @@ public class Scan extends CrawlerRoutine {
 		if (after > 0) {
 			sql = "SELECT id, " + this.field + " FROM " + this.name + " where _timestamp > " + after + " and _isvisited = 0 ORDER BY _timestamp ASC";
 		}
+		System.out.println(sql);
 		try {
 			result =  state.executeQuery(sql);
 			while(result.next()) {

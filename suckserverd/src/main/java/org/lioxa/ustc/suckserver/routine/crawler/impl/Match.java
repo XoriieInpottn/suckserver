@@ -122,8 +122,8 @@ public class Match extends CrawlerRoutine {
         if (this.path != null) {
         	WebElement elems = null;
 			try {
-//				elems = this.globalContext.getBrowserDriver().select(dom, this.path, 3, 2).get(0);
-				elems = this.globalContext.getBrowserDriver().select(dom, this.path, this.retry, this.delay).get(0);
+				elems = this.globalContext.getBrowserDriver().select(dom, this.path, 3, 2).get(0);
+//				elems = this.globalContext.getBrowserDriver().select(dom, this.path, this.retry, this.delay).get(0);
 			} catch (Exception e) {
 			}
 			if(elems == null) {

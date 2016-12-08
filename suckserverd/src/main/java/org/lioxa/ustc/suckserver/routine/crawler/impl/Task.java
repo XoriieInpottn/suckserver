@@ -61,10 +61,10 @@ public class Task extends CrawlerRoutine {
         try {
             this.executeSubRoutines();
         } catch (Exception e) {
-            this.globalContext.getBrowserDriver().quit();
+//            this.globalContext.getBrowserDriver().quit();
             throw e;
         }
-        this.globalContext.getBrowserDriver().quit();
+//        this.globalContext.getBrowserDriver().quit();//暂时停止下，用于记录错误页面，注意取消
     }
 
 }

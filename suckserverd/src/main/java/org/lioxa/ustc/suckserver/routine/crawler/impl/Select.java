@@ -47,7 +47,8 @@ public class Select extends CrawlerRoutine {
 		// List<WebElement> elems = dom.findElements(By.cssSelector(path));
 		List<WebElement> elems = this.globalContext.getBrowserDriver().select(
 				dom, path, 3, 2);
-		if (elems.size() == 0) {
+		if (elems.size() == 0 && this.masterRoutine.getClass().getSimpleName().equals("Success")) {
+			System.out.println("Select现在抛出异常");
 			throw new ExecutionException("Content of select is null.");
 		}
 		this.localContext.put("repeatNum", 0);

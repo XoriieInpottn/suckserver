@@ -38,14 +38,20 @@ public class Click extends CrawlerRoutine {
         long tid = this.globalContext.getRunnableTask().getId();
         if (this.path != null) {
             if (element != null) {
-                element = this.globalContext.getBrowserDriver().select(element, this.path, this.retry, this.delay)
-                        .get(0);
-                if (element == null) {
-                    Loggers.getDefault().writeLog(tid, "The path of Click is invalid!");
-                    return;
-                }
+            	try {
+	                element = this.globalContext.getBrowserDriver().select(element, this.path, this.retry, this.delay)
+	                        .get(0);
+            	} catch (Exception e) {
+        		   Loggers.getDefault().writeLog(tid, "The path of Click is invalid!");
+                   return;
+            	}
             } else {
-                element = this.globalContext.getBrowserDriver().select(this.path, this.retry, this.delay).get(0);
+            	try {
+            		element = this.globalContext.getBrowserDriver().select(this.path, this.retry, this.delay).get(0);
+            	} catch (Exception e) {
+        		    Loggers.getDefault().writeLog(tid, "The path of Click is invalid!");
+                    return;
+            	}
             }
         }
         if (!this.globalContext.getBrowserDriver().click(element, 8)) {
